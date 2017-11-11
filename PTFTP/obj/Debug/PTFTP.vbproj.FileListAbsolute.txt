@@ -1,0 +1,11 @@
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\bin\Debug\PTFTP.exe.config
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\obj\Debug\PTFTP.Main.resources
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\obj\Debug\PTFTP.Resources.resources
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\obj\Debug\PTFTP.vbproj.GenerateResource.Cache
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\obj\Debug\PTFTP.xml
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\bin\Debug\PTFTP.exe
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\bin\Debug\PTFTP.pdb
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\bin\Debug\PTFTP.xml
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\obj\Debug\PTFTP.exe
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\obj\Debug\PTFTP.pdb
+c:\users\admin\documents\visual studio 2015\Projects\PTFTP\PTFTP\obj\Debug\PTFTP.AboutBox1.resources
