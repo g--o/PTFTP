@@ -4,13 +4,21 @@ Public Class Login
 
     Public user As User
 
+
+    Private Sub ListBox1_DoubleClick(sender As ListBox, e As EventArgs) Handles ListBox1.DoubleClick
+        If ListBox1.SelectedItems.Count > 0 Then
+            Login()
+        End If
+    End Sub
+
     'יציאה
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Application.Exit()
     End Sub
 
     'התחברות
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+    Private Sub Login()
         Dim res As String
         'התחברות עצמה
         Try
@@ -27,6 +35,11 @@ Public Class Login
         Dim m = New Main(res)
         m.ShowDialog()
         Me.Show()
+    End Sub
+
+    'כפתור התחברות
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Login()
     End Sub
 
     'שמירה

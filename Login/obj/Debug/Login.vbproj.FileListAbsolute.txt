@@ -52,6 +52,16 @@ D:\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.application
 D:\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.exe
 D:\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.xml
 D:\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.pdb
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.AboutBox1.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.Login.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.Main.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.Resources.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.SplashScreen1.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\Login.vbproj.GenerateResource.Cache
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.exe
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.xml
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.pdb
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\Login.vbprojResolveAssemblyReference.cache
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Debug\dir.png
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Debug\AboutBox1.resx
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Debug\AboutBox1.Designer.vb
@@ -62,15 +72,6 @@ D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Debug\PTFTP.exe
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Debug\PTFTP.pdb
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Debug\PTFTP.xml
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\Login.vbprojResolveAssemblyReference.cache
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.AboutBox1.resources
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.Login.resources
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.Main.resources
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.Resources.resources
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.SplashScreen1.resources
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\Login.vbproj.GenerateResource.Cache
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.exe.manifest
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.application
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.exe
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.xml
-D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.pdb
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.QueueWindow.resources

@@ -1,13 +1,17 @@
 ﻿Imports System.Collections.Specialized
 Imports System.IO
+Imports System.Threading
 
 Public Class Main
-    Private fileList As String
-    Private dirIcon = "./dir.png"
-    Private imgScale = 15
-    Private imgProportion = 1
-    Private selectedList As ArrayList
-    Private user = Login.user
+    Private files As Hashtable = New Hashtable
+    Private dirIcon As Bitmap = Bitmap.FromFile("./folder.png")
+    Private fileIcon As Bitmap = Bitmap.FromFile("./file.png")
+    Private imgScale As Integer = 15
+    Private imgProportion As Integer = 1
+    Private Shared downloadQueue As New Queue
+    Private externalDropHandler As ExternalDropHandler
+    Private user As User = Login.user
+    Private queueWindow As QueueWindow
 
     Public Sub New(res As String)
 
@@ -16,23 +20,74 @@ Public Class Main
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        fileList = res
 
+        If System.IO.Directory.Exists("tmp") Then
+            System.IO.Directory.Delete("tmp", True)
+        End If
+
+        externalDropHandler = New ExternalDropHandler(AddressOf Me.AddDownload)
+    End Sub
+
+    Private Sub AddDownload(path As String)
+        Dim q = Queue.Synchronized(downloadQueue)
+
+        SyncLock q.SyncRoot
+            While q.Count > 0
+                Dim fileName = q.Dequeue()
+                queueWindow.EnqueueOperation(New FtpOperation(fileName, path, FTP_OPERATION_TYPE.DOWNLOAD, files.Item(fileName).Size))
+            End While
+            q.Clear()
+        End SyncLock
+
+        queueWindow.TriggerUpdate()
+    End Sub
+
+    Private Sub PrepareDownload()
+        ' prepare download queue
+        Dim q As Queue = Queue.Synchronized(downloadQueue)
+        SyncLock q.SyncRoot
+            For Each item As ListViewItem In ListView1.SelectedItems
+                q.Enqueue(item.Text)
+            Next
+        End SyncLock
+    End Sub
+
+    Private Sub RequestEnded(resp)
+        If Not String.IsNullOrEmpty(resp) Then
+            MessageBox.Show(resp)
+        End If
+
+        Reload()
     End Sub
 
     Private Sub ListView1_ItemActivate(sender As ListView, e As EventArgs) _
      Handles ListView1.ItemActivate
 
-        Dim name = sender.SelectedItems.Item(0).Text
-        fileList = Login.user.SetDirectory(name)
-        RequestEnded("")
+        Dim item = sender.SelectedItems.Item(0)
+        Dim name = item.Text
+
+        If item.ImageIndex = 0 Then
+            ' directory
+            Login.user.SetDirectory(name)
+            RequestEnded("")
+        Else
+            Dim openFile = New OpenFile(name, user)
+            openFile.Open()
+        End If
+    End Sub
+
+    Public Sub TriggerUpdate()
+        Reload()
     End Sub
 
     Private Sub Reload()
-        fileList = Login.user.SetDirectory(".")
+        Dim filesStrList As String
+        files.Clear()
+        filesStrList = Login.user.SetDirectory(".")
 
         Dim il = New ImageList()
-        il.Images.Add(Bitmap.FromFile(dirIcon))
+        il.Images.Add(dirIcon)
+        il.Images.Add(fileIcon)
 
         If (ListView1.FindForm IsNot Nothing) Then
             Dim width = Math.Sqrt(Math.Pow(ListView1.FindForm.Size().Height(), 2) + Math.Pow(ListView1.FindForm.Size().Width(), 2)) / imgScale
@@ -42,63 +97,43 @@ Public Class Main
         ListView1.LargeImageList = il
         ListView1.Items.Clear()
 
-        'My.Computer.FileSystem.WriteAllText("tmp.txt", fileList, True)
-        Dim arr = fileList.Split(Environment.NewLine)
+        Dim arr = filesStrList.Split(Environment.NewLine)
 
-        For Each file As String In arr 'נפריד את הקבצים לרשימה
+        For Each file As String In arr 'Seperate to a list
+            ' skip "."
             If Not arr.First.Equals(file) Then
                 file = file.Substring(1, file.Length - 1)
             End If
+
             If file.Equals("") Then
-                file = ".."
-            End If
+                ' include ".."
+                ListView1.Items.Add("..", "..", 0)
+            Else
+                Dim parsedFile = New FtpFile(file)
 
-            ListView1.Items.Add(file, file, 0)
-        Next
-    End Sub
-
-    'טעינה של החלון
-    Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        setupFSMs()
-
-        If Not IO.File.Exists(My.Application.Info.DirectoryPath & "\\tmp_donot_delete.antf2") Then
-            IO.File.Create(My.Application.Info.DirectoryPath & "\\tmp_donot_delete.antf2")
-            SetAttr(My.Application.Info.DirectoryPath & "\\tmp_donot_delete.antf2", FileAttribute.Hidden + FileAttribute.System)
-        End If
-
-        ContextMenuStrip1.Enabled = False
-        Reload()
-    End Sub
-
-    Public Sub setupFSMs()
-        Dim Drives() As IO.DriveInfo = IO.DriveInfo.GetDrives 'This retrieves a complete list of the drives used in the pc.
-
-        For i As Integer = 0 To Drives.Length - 1      'Make a loop to add filesystemwatcher to EVERY drive and thier sub folders.
-
-            If Drives(i).DriveType = IO.DriveType.Fixed Then
-                If Drives(i).IsReady Then
-                    Dim FSM As IO.FileSystemWatcher = New IO.FileSystemWatcher(Drives(i).RootDirectory.FullName, "*.antf2") 'antf2 is my ext use your own if you wish but careful to change it sith the rest of the code.
-
-                    AddHandler FSM.Created, AddressOf OnChanged
-                    FSM.IncludeSubdirectories = True
-                    FSM.EnableRaisingEvents = True
+                ' update image index
+                Dim imageIndex = 0
+                If Not parsedFile.isDirectory Then
+                    imageIndex = 1
                 End If
+
+                parsedFile.imageIndex = imageIndex
+
+                ' Add file
+                files(parsedFile.Name) = parsedFile
+                ListView1.Items.Add(parsedFile.Name, parsedFile.Name, imageIndex)
             End If
         Next
     End Sub
 
-    Sub OnChanged(ByVal source As Object, ByVal e As IO.FileSystemEventArgs)
-        Dim output = IO.Path.GetDirectoryName(e.FullPath)
-
-        Dim files = New ArrayList(selectedList)
-        selectedList.Clear()
-
-        DownloadTo(files, output)
-
-        Dim locator = output.Trim("'") & "\tmp_donot_delete.antf2"
-        If File.Exists(locator) Then
-            My.Computer.FileSystem.DeleteFile(locator)
-        End If
+    'Form loading
+    Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ContextMenuStrip1.Enabled = False
+        System.IO.Directory.CreateDirectory("tmp")
+        Reload()
+        queueWindow = New QueueWindow(Me)
+        queueWindow.Show()
+        queueWindow.Location = New Point(Me.Location.X, Me.Location.Y + Me.Height)
     End Sub
 
     Private Sub Main_ResizeEnd(sender As Object, e As EventArgs) _
@@ -107,7 +142,7 @@ Public Class Main
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
-        Login.user.Close() 'סגור תחיבור
+        Login.user.Close() 'close connection
         Me.Close()
     End Sub
 
@@ -152,7 +187,7 @@ Public Class Main
         End If
     End Sub
 
-    'פונקציות גרירה
+    'drag n drop
     Private Sub ListView1_DragEnter(sender As Object, e As DragEventArgs) Handles ListView1.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
@@ -170,16 +205,15 @@ Public Class Main
             If String.IsNullOrWhiteSpace(fileInfo.Extension) Then Exit Sub
             Dim resp = ""
             If sender Is ListView1 Then
-                resp = Login.user.UploadFile(fileInfo)
+                Dim qtrd = New Thread(Sub() queueWindow.EnqueueOperation(New FtpOperation(fileInfo.Name, fileInfo.FullName, FTP_OPERATION_TYPE.UPLOAD, fileInfo.Length)))
+                qtrd.IsBackground = True
+                qtrd.Start()
             End If
-            RequestEnded(resp)
         Next
-    End Sub
 
-    Private Sub DownloadTo(files As ArrayList, path As String)
-        For Each fileName In files
-            user.DownloadFile(fileName, path + "/" + fileName)
-        Next
+        Dim trd = New Thread(Sub() queueWindow.TriggerUpdate())
+        trd.IsBackground = True
+        trd.Start()
     End Sub
 
     Private Sub ListView1_OnItemDrag(ByVal sender As Object, ByVal m As System.Windows.Forms.ItemDragEventArgs) Handles ListView1.ItemDrag
@@ -190,20 +224,14 @@ Public Class Main
         Dim dta = New DataObject(DataFormats.FileDrop, fileas)
         dta.SetData(DataFormats.StringFormat, fileas)
 
-        ' prepare download array
-        selectedList = New ArrayList()
-        For Each item As ListViewItem In ListView1.SelectedItems
-            selectedList.Add(item.Text)
-        Next
+        PrepareDownload()
 
-        DoDragDrop(dta, DragDropEffects.Move)
+        DoDragDrop(dta, DragDropEffects.Copy)
     End Sub
 
-    Private Sub RequestEnded(resp)
-        If Not String.IsNullOrEmpty(resp) Then
-            MessageBox.Show(resp)
-        End If
-
-        Reload()
+    Private Sub Main_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+        System.IO.Directory.Delete("tmp", True)
+        queueWindow.Close()
     End Sub
+
 End Class

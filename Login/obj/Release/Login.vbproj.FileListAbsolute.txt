@@ -64,3 +64,26 @@ D:\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.application
 D:\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.exe
 D:\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.xml
 D:\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.pdb
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\Login.vbprojResolveAssemblyReference.cache
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.AboutBox1.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.Login.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.Main.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.Resources.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.SplashScreen1.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\Login.vbproj.GenerateResource.Cache
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.exe
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.xml
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.pdb
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\dir.png
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\AboutBox1.resx
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\AboutBox1.Designer.vb
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\AboutBox1.vb
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\PTFTP.exe.config
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\PTFTP.exe.manifest
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\PTFTP.application
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\PTFTP.exe
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\PTFTP.pdb
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\bin\Release\PTFTP.xml
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.QueueWindow.resources
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.exe.manifest
+D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Release\PTFTP.application

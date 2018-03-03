@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PTFTP.exe" size="1178560">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PTFTP.exe" size="1556992">
       <assemblyIdentity name="PTFTP" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>A1dT4HIWEEJKDZFppnHTG9K9m0IqSdyI1IXVYqbXhXw=</dsig:DigestValue>
+        <dsig:DigestValue>hZ/a469j6w3k7E5xSnNkDiXE3RQ/XWd7fLZ5M3JeR68=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

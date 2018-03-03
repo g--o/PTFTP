@@ -2,6 +2,8 @@
 Imports System.Net
 
 Public Class User
+    Private bufferSize As Integer = 4096
+
     'יצירה של חיבור משתמש
     Sub New(ByVal h As String, ByVal u As String, ByVal p As String, ByVal po As Integer)
 
@@ -30,10 +32,16 @@ Public Class User
         Return Me.host + cwd
     End Function
 
+    Function GetPrettyCwd()
+        Dim newCwd As String = cwd
+        Return newCwd.Trim().Replace(" ", "-").Replace("/", "_")
+
+    End Function
+
     'השג את תוכן התיקיה
     Function SetDirectory(name As String)
         cwd += "/" + name
-        Return Me.GetRequest(Me.GetCwd(), System.Net.WebRequestMethods.Ftp.ListDirectory)
+        Return Me.GetRequest(Me.GetCwd(), System.Net.WebRequestMethods.Ftp.ListDirectoryDetails)
     End Function
 
     Function CreateRequest(uri As String, method As String)
@@ -47,13 +55,17 @@ Public Class User
     Function GetRequest(uri As String, method As String)
         Dim req = CreateRequest(uri, method)
 
-        Dim resp = req.GetResponse()
-        Dim s As Stream = resp.GetResponseStream()
-        Dim res = New System.IO.StreamReader(s).ReadToEnd()
+        Try
+            Dim resp = req.GetResponse()
+            Dim s As Stream = resp.GetResponseStream()
+            Dim res = New System.IO.StreamReader(s).ReadToEnd()
+            resp.Close()
+            Return res
+        Catch e As Exception
+            MessageBox.Show(e.Message)
+        End Try
 
-        resp.Close()
-
-        Return res
+        Return ""
     End Function
 
     Function StreamRequest(uri As String, method As String, data As Byte())
@@ -70,6 +82,22 @@ Public Class User
         resp.Close()
 
         Return res
+    End Function
+
+    Function CopyStreams(ByRef srcStream As Stream, ByRef destStream As Stream, Optional size As Integer = 0, Optional callback As Action(Of Integer) = Nothing)
+        Dim read As Integer = 0
+        Dim totalRead As Double = read
+        Dim buffer(bufferSize) As Byte
+
+        read = srcStream.Read(buffer, 0, buffer.Length)
+        While read > 0
+            destStream.Write(buffer, 0, read)
+            If callback IsNot Nothing And size <> 0 Then
+                totalRead += read
+                callback(totalRead / size * 100)
+            End If
+            read = srcStream.Read(buffer, 0, buffer.Length)
+        End While
     End Function
 
     'סגור את החיבור
@@ -92,36 +120,41 @@ Public Class User
         Return New System.IO.StreamReader(response.GetResponseStream()).ReadToEnd()
     End Function
 
-    Function UploadFile(fileInfo As FileInfo)
-        Dim path = fileInfo.FullName
-        Dim name = fileInfo.Name
-
-        Dim file() As Byte = System.IO.File.ReadAllBytes(path)
-        Dim uri = Me.GetCwd() + "/" + name
-
-        Return Me.StreamRequest(uri, System.Net.WebRequestMethods.Ftp.UploadFile, file)
+    Function UploadInto(localPath As String, remotePath As String)
+        Dim file() As Byte = System.IO.File.ReadAllBytes(localPath)
+        Return Me.StreamRequest(remotePath, System.Net.WebRequestMethods.Ftp.UploadFile, file)
     End Function
 
-    Function DownloadFile(fileName As String, target As String)
+    Function UploadFile(fileInfo As FileInfo, Optional callback As Action(Of Integer) = Nothing)
+        Dim path = fileInfo.FullName
+        Dim name = FileInfo.Name
+        Dim size = FileInfo.Length
+
+        Dim uri = Me.GetCwd() + "/" + name
+        Dim req = CreateRequest(uri, System.Net.WebRequestMethods.Ftp.UploadFile)
+        req.UseBinary = True
+
+        Using fileStream As Stream = File.OpenRead(path)
+            Using ftpStream As Stream = req.GetRequestStream()
+                CopyStreams(fileStream, ftpStream, size, callback)
+                ftpStream.Close()
+                fileStream.Close()
+            End Using
+        End Using
+    End Function
+
+    Function DownloadFile(fileName As String, target As String, Optional size As Integer = 0, Optional callback As Action(Of Integer) = Nothing)
         Dim req = Me.CreateRequest(Me.GetCwd() + "/" + fileName, System.Net.WebRequestMethods.Ftp.DownloadFile)
         req.UseBinary = True
         ' read stream and write to file
         Using FtpResponse As FtpWebResponse = CType(req.GetResponse, FtpWebResponse)
-            Using ResponseStream As IO.Stream = FtpResponse.GetResponseStream
-
-                Using fs As New IO.FileStream(target, FileMode.Create)
-                    Dim buffer(2047) As Byte
-                    Dim read As Integer = 0
-                    Do
-                        read = ResponseStream.Read(buffer, 0, buffer.Length)
-                        fs.Write(buffer, 0, read)
-                    Loop Until read = 0
-                    ResponseStream.Close()
-                    fs.Flush()
-                    fs.Close()
+            Using ftpStream As IO.Stream = FtpResponse.GetResponseStream
+                Using fileStream As New IO.FileStream(target, FileMode.Create)
+                    CopyStreams(ftpStream, fileStream, size, callback)
+                    ftpStream.Close()
+                    fileStream.Flush()
+                    fileStream.Close()
                 End Using
-                ResponseStream.Close()
-
             End Using
         End Using
     End Function

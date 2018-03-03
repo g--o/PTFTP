@@ -47,7 +47,7 @@ Partial Class Main
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ViewToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(672, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(684, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -122,7 +122,7 @@ Partial Class Main
         Me.ListView1.LabelEdit = True
         Me.ListView1.Location = New System.Drawing.Point(0, 24)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(672, 519)
+        Me.ListView1.Size = New System.Drawing.Size(684, 437)
         Me.ListView1.TabIndex = 1
         Me.ListView1.TileSize = New System.Drawing.Size(128, 128)
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -131,19 +131,19 @@ Partial Class Main
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeleteToolStripMenuItem, Me.RenameToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(153, 70)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(118, 48)
         '
         'DeleteToolStripMenuItem
         '
         Me.DeleteToolStripMenuItem.DoubleClickEnabled = True
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.DeleteToolStripMenuItem.Text = "Delete"
         '
         'RenameToolStripMenuItem
         '
         Me.RenameToolStripMenuItem.Name = "RenameToolStripMenuItem"
-        Me.RenameToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RenameToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.RenameToolStripMenuItem.Text = "Rename"
         '
         'Main
@@ -152,13 +152,12 @@ Partial Class Main
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(672, 543)
+        Me.ClientSize = New System.Drawing.Size(684, 461)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Main"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "PTFTP"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
