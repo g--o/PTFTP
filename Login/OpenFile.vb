@@ -5,27 +5,61 @@
     Private localPath As String
     Private name As String
     Private user As User
+    Private isOpen = False
+    Private isUpdating = False
+
+    Public Shared Function GetPath(name As String, user As User) As String
+        Return user.GetCwd() + "/" + name
+    End Function
 
     Public Sub New(name As String, user As User)
         Me.user = user
         Me.name = name
 
-        Me.remotePath = Me.user.GetCwd() + "/" + Me.name
+        Me.remotePath = GetPath(Me.name, Me.user)
         Me.localPath = "tmp\" + user.GetPrettyCwd() + "__" + Me.name
     End Sub
 
     Public Function Open()
+        If isOpen Then
+            Process.Start(Me.localPath)
+            Return False
+        End If
+
+        isOpen = True
+
+        If IO.File.Exists(localPath) Then
+            Return False
+        End If
+
         Me.user.DownloadFile(Me.name, localPath)
         FSM = New IO.FileSystemWatcher("tmp", Me.user.GetPrettyCwd() + "__" + Me.name)
         FSM.EnableRaisingEvents = True
+        FSM.NotifyFilter = IO.NotifyFilters.LastWrite
         AddHandler FSM.Changed, AddressOf OnSave
         Process.Start(Me.localPath)
+
+        Return True
     End Function
 
     Public Function OnSave(ByVal source As Object, ByVal e As IO.FileSystemEventArgs)
-        If e.ChangeType = IO.WatcherChangeTypes.Changed Then
-            Me.user.UploadInto(Me.localPath, Me.remotePath)
+        If isUpdating Then
+            Return False
         End If
+
+        isUpdating = True
+        If e.ChangeType = IO.WatcherChangeTypes.Changed Then
+            Threading.Thread.Sleep(1000)
+            Dim fileInfo = New IO.FileInfo(Me.localPath)
+            'Main.queueWindow.EnqueueOperation(New FtpOperation(Me.name, Me.remotePath, FTP_OPERATION_TYPE.UPLOAD, fileInfo.Length))
+            'Main.queueWindow.TriggerUpdate()
+            Me.user.UploadInto(Me.localPath, Me.remotePath)
+            Main.queueWindow.Invoke(CType(Sub()
+                                              Main.queueWindow.ListBox1.Items.Insert(0, "<Edited> " + Me.remotePath)
+                                          End Sub, MethodInvoker))
+        End If
+
+        isUpdating = False
     End Function
 
 End Class

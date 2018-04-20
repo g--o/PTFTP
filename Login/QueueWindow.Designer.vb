@@ -26,6 +26,7 @@ Partial Class QueueWindow
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'ListBox1
@@ -52,6 +53,9 @@ Partial Class QueueWindow
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Progress:"
         '
+        'BackgroundWorker1
+        '
+        '
         'QueueWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -72,4 +76,5 @@ Partial Class QueueWindow
     Friend WithEvents ListBox1 As ListBox
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents Label1 As Label
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

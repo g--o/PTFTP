@@ -121,7 +121,14 @@ Public Class User
     End Function
 
     Function UploadInto(localPath As String, remotePath As String)
-        Dim file() As Byte = System.IO.File.ReadAllBytes(localPath)
+        Dim file() As Byte
+        Try
+            file = System.IO.File.ReadAllBytes(localPath)
+        Catch ex As Exception
+            MessageBox.Show("Sorry, file is used right now. Please try again in a few seconds.")
+            Return False
+        End Try
+
         Return Me.StreamRequest(remotePath, System.Net.WebRequestMethods.Ftp.UploadFile, file)
     End Function
 

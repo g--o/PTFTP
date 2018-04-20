@@ -4,6 +4,7 @@ Imports System.Threading
 
 Public Class Main
     Private files As Hashtable = New Hashtable
+    Private openFiles As Hashtable = New Hashtable
     Private dirIcon As Bitmap = Bitmap.FromFile("./folder.png")
     Private fileIcon As Bitmap = Bitmap.FromFile("./file.png")
     Private imgScale As Integer = 15
@@ -11,7 +12,7 @@ Public Class Main
     Private Shared downloadQueue As New Queue
     Private externalDropHandler As ExternalDropHandler
     Private user As User = Login.user
-    Private queueWindow As QueueWindow
+    Public Shared queueWindow As QueueWindow
 
     Public Sub New(res As String)
 
@@ -71,8 +72,17 @@ Public Class Main
             Login.user.SetDirectory(name)
             RequestEnded("")
         Else
-            Dim openFile = New OpenFile(name, user)
-            openFile.Open()
+            Dim path = OpenFile.GetPath(name, user)
+            Dim file = Nothing
+
+            If openFiles.ContainsKey(path) Then
+                file = openFiles(path)
+            Else
+                file = New OpenFile(name, user)
+                openFiles(path) = file
+            End If
+
+            file.Open()
         End If
     End Sub
 
@@ -205,15 +215,11 @@ Public Class Main
             If String.IsNullOrWhiteSpace(fileInfo.Extension) Then Exit Sub
             Dim resp = ""
             If sender Is ListView1 Then
-                Dim qtrd = New Thread(Sub() queueWindow.EnqueueOperation(New FtpOperation(fileInfo.Name, fileInfo.FullName, FTP_OPERATION_TYPE.UPLOAD, fileInfo.Length)))
-                qtrd.IsBackground = True
-                qtrd.Start()
+                queueWindow.EnqueueOperation(New FtpOperation(fileInfo.Name, fileInfo.FullName, FTP_OPERATION_TYPE.UPLOAD, fileInfo.Length))
             End If
         Next
 
-        Dim trd = New Thread(Sub() queueWindow.TriggerUpdate())
-        trd.IsBackground = True
-        trd.Start()
+        queueWindow.TriggerUpdate()
     End Sub
 
     Private Sub ListView1_OnItemDrag(ByVal sender As Object, ByVal m As System.Windows.Forms.ItemDragEventArgs) Handles ListView1.ItemDrag
