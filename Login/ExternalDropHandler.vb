@@ -1,6 +1,9 @@
-﻿Public Class ExternalDropHandler
+Public Class ExternalDropHandler
 
-    Private Shared FSM As IO.FileSystemWatcher
+    Public tmpFileExtension = ".ptftpdl9"
+    Public tmpFileName = "ptftp" & tmpFileExtension
+
+    Private FSMArr = New List(Of IO.FileSystemWatcher)
     Private callback As Action(Of String)
 
     Public Sub New(callback As Action(Of String))
@@ -8,9 +11,9 @@
 
         setupFSMs()
 
-        If Not IO.File.Exists(My.Application.Info.DirectoryPath & "\\tmp_donot_delete.antf2") Then
-            IO.File.Create(My.Application.Info.DirectoryPath & "\\tmp_donot_delete.antf2")
-            SetAttr(My.Application.Info.DirectoryPath & "\\tmp_donot_delete.antf2", FileAttribute.Hidden + FileAttribute.System)
+        If Not IO.File.Exists(My.Application.Info.DirectoryPath & "\" & tmpFileName) Then
+            IO.File.Create(My.Application.Info.DirectoryPath & "\" & tmpFileName)
+            SetAttr(My.Application.Info.DirectoryPath & "\" & tmpFileName, FileAttribute.Hidden + FileAttribute.System)
         End If
 
     End Sub
@@ -19,33 +22,32 @@
         Dim Drives() As IO.DriveInfo = IO.DriveInfo.GetDrives 'This retrieves a complete list of the drives used in the pc.
 
         For i As Integer = 0 To Drives.Length - 1      'Make a loop to add filesystemwatcher to EVERY drive and thier sub folders.
+            If Drives(i).DriveType = IO.DriveType.Fixed And Drives(i).IsReady Then
+                Dim fsm = New IO.FileSystemWatcher(Drives(i).RootDirectory.FullName, tmpFileName)
 
-            If Drives(i).DriveType = IO.DriveType.Fixed Then
-                If Drives(i).IsReady Then
-                    If FSM Is Nothing Then
-                        FSM = New IO.FileSystemWatcher(Drives(i).RootDirectory.FullName, "*.antf2") 'antf2 is some unique ext
-                    End If
+                AddHandler fsm.Created, AddressOf Me.OnChanged
+                fsm.IncludeSubdirectories = True
+                fsm.EnableRaisingEvents = True
 
-                    AddHandler FSM.Created, AddressOf OnChanged
-                    FSM.IncludeSubdirectories = True
-                    FSM.EnableRaisingEvents = True
-                End If
+                FSMArr.Add(fsm)
             End If
         Next
     End Sub
 
+    Sub TryDelete(location As String)
+        Try
+            My.Computer.FileSystem.DeleteFile(location)
+        Catch ex As Exception
+            System.Threading.Thread.Sleep(1000)
+            TryDelete(location)
+        End Try
+    End Sub
+
     Sub OnChanged(ByVal source As Object, ByVal e As IO.FileSystemEventArgs)
         Dim output = IO.Path.GetDirectoryName(e.FullPath)
+        Dim locator = output.Trim("'") & "\" & tmpFileName
 
-        Dim locator = output.Trim("'") & "\tmp_donot_delete.antf2"
-
-        Try
-            While System.IO.File.Exists(locator)
-                My.Computer.FileSystem.DeleteFile(locator)
-                System.Threading.Thread.Sleep(1000)
-            End While
-        Catch ex As Exception
-        End Try
+        TryDelete(locator)
 
         Me.callback(output)
     End Sub

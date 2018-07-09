@@ -75,3 +75,27 @@ D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.exe.manifest
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.application
 D:\ניר\תכנות\תוכנות ומשחקים\Projects\CurrentProjects\PTFTP\Login\obj\Debug\PTFTP.QueueWindow.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\AboutBox1.resx
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\AboutBox1.Designer.vb
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\AboutBox1.vb
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\PTFTP.exe.config
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\PTFTP.exe.manifest
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\PTFTP.application
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\PTFTP.exe
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\PTFTP.pdb
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\PTFTP.xml
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\Login.vbprojResolveAssemblyReference.cache
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.AboutBox1.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.QueueWindow.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.Login.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.Main.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.Resources.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.SplashScreen1.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\Login.vbproj.GenerateResource.cache
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\Login.vbproj.CoreCompileInputs.cache
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.exe.manifest
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.application
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.exe
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.xml
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.pdb
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\App.config

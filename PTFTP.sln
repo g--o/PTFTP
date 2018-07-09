@@ -5,12 +5,6 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Login", "Login\Login.vbproj", "{761F88C3-CAD0-4D30-B5E5-31BFE6B52F0B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CBA2F709-466D-4722-91E5-5452C5D5575B}"
-	ProjectSection(SolutionItems) = preProject
-		Login\bin\Debug\icon\dir.png = Login\bin\Debug\icon\dir.png
-		Login\file.png = Login\file.png
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E26FC48A-05DB-4D6E-80C8-ADFC8FDDA7A8}
 	EndGlobalSection
 EndGlobal

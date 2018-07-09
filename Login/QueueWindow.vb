@@ -49,6 +49,8 @@ Public Class QueueWindow
                 ErrorAndQuit("File length mismatch!")
             End If
             user.UploadFile(fi, Me.opProgress)
+        ElseIf fileOp.type = FTP_OPERATION_TYPE.MOVE Then
+            user.MoveFile(fileOp.fileName, fileOp.destPath)
         Else
             Console.WriteLine("Bad operation?!")
         End If

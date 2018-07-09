@@ -14,14 +14,14 @@
     <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="PTFTP.exe.manifest" size="5963">
+    <dependentAssembly dependencyType="install" codebase="Application Files\PTFTP_1_1_0_0\PTFTP.exe.manifest" size="5963">
       <assemblyIdentity name="PTFTP.exe" version="1.1.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+PTDN99/S23Brqq3GTsiSze9sNalNvJ/457P4T7nmQ0=</dsig:DigestValue>
+        <dsig:DigestValue>BZ5rmSWsYXMuYd3V4oKf63V9aK1JvssxoL4djMMKaic=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

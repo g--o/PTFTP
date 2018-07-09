@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Specialized
+Imports System.Collections.Specialized
 Imports System.IO
 Imports System.Threading
 
@@ -26,16 +26,16 @@ Public Class Main
             System.IO.Directory.Delete("tmp", True)
         End If
 
-        externalDropHandler = New ExternalDropHandler(AddressOf Me.AddDownload)
+        externalDropHandler = New ExternalDropHandler(AddressOf Me.AddOp)
     End Sub
 
-    Private Sub AddDownload(path As String)
+    Private Sub AddOp(path As String, Optional ByVal type As FTP_OPERATION_TYPE = FTP_OPERATION_TYPE.DOWNLOAD)
         Dim q = Queue.Synchronized(downloadQueue)
 
         SyncLock q.SyncRoot
             While q.Count > 0
                 Dim fileName = q.Dequeue()
-                queueWindow.EnqueueOperation(New FtpOperation(fileName, path, FTP_OPERATION_TYPE.DOWNLOAD, files.Item(fileName).Size))
+                queueWindow.EnqueueOperation(New FtpOperation(fileName, path, type, files.Item(fileName).Size))
             End While
             q.Clear()
         End SyncLock
@@ -209,6 +209,22 @@ Public Class Main
     Private Sub ListView1_DragDrop(sender As Object, e As DragEventArgs) Handles ListView1.DragDrop
         Dim files = e.Data.GetData(DataFormats.FileDrop)
 
+        If files.Length.Equals(1) Then
+            Dim fileInfo = New FileInfo(files(0))
+
+            If fileInfo.Name = externalDropHandler.tmpFileName Then
+                'Get target from mouse position
+                Dim p As Point = ListView1.PointToClient(MousePosition)
+                Dim item As ListViewItem = ListView1.GetItemAt(p.X, p.Y)
+
+                If item IsNot Nothing Then
+                    AddOp(item.Text, FTP_OPERATION_TYPE.MOVE)
+                End If
+
+                Exit Sub
+            End If
+        End If
+
         For Each file In files
             Dim fileInfo = New FileInfo(file)
 
@@ -226,13 +242,14 @@ Public Class Main
         If ListView1.SelectedItems.Count = 0 Then Return
 
         Dim fileas As String() = New [String](0) {}
-        fileas(0) = My.Application.Info.DirectoryPath & "\tmp_donot_delete.antf2"
+        fileas(0) = My.Application.Info.DirectoryPath & "\" & externalDropHandler.tmpFileName
         Dim dta = New DataObject(DataFormats.FileDrop, fileas)
         dta.SetData(DataFormats.StringFormat, fileas)
 
         PrepareDownload()
 
         DoDragDrop(dta, DragDropEffects.Copy)
+
     End Sub
 
     Private Sub Main_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing

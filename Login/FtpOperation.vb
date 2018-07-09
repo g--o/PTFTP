@@ -1,6 +1,7 @@
 ﻿Public Enum FTP_OPERATION_TYPE
     UPLOAD
     DOWNLOAD
+    MOVE
 End Enum
 
 Public Class FtpOperation
@@ -18,14 +19,22 @@ Public Class FtpOperation
 
     Public Function ToString() As String
         Dim s = ""
+        Dim extras = ""
 
         If type = FTP_OPERATION_TYPE.DOWNLOAD Then
             s = "Download"
-        Else
+        ElseIf type = FTP_OPERATION_TYPE.UPLOAD Then
             s = "Upload"
+        ElseIf type = FTP_OPERATION_TYPE.MOVE Then
+            s = "Move"
+            extras += " -> " + destPath
+        Else
+            s = "Invalid Operation"
         End If
 
         s += ": " + fileName
+
+        s += extras
 
         Return s
     End Function
