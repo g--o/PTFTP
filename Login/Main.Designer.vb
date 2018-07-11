@@ -33,11 +33,12 @@ Partial Class Main
         Me.IconsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RenameToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -74,7 +75,7 @@ Partial Class Main
         'PreferencesToolStripMenuItem
         '
         Me.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem"
-        Me.PreferencesToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.PreferencesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PreferencesToolStripMenuItem.Text = "Preferences"
         '
         'ViewToolStripMenuItem
@@ -102,10 +103,16 @@ Partial Class Main
         '
         'HelpToolStripMenuItem
         '
-        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem})
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SiteToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'SiteToolStripMenuItem
+        '
+        Me.SiteToolStripMenuItem.Name = "SiteToolStripMenuItem"
+        Me.SiteToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.SiteToolStripMenuItem.Text = "Site"
         '
         'AboutToolStripMenuItem
         '
@@ -129,9 +136,15 @@ Partial Class Main
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DeleteToolStripMenuItem, Me.RenameToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RenameToolStripMenuItem, Me.DeleteToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.Size = New System.Drawing.Size(118, 48)
+        '
+        'RenameToolStripMenuItem
+        '
+        Me.RenameToolStripMenuItem.Name = "RenameToolStripMenuItem"
+        Me.RenameToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
+        Me.RenameToolStripMenuItem.Text = "Rename"
         '
         'DeleteToolStripMenuItem
         '
@@ -139,12 +152,6 @@ Partial Class Main
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
         Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.DeleteToolStripMenuItem.Text = "Delete"
-        '
-        'RenameToolStripMenuItem
-        '
-        Me.RenameToolStripMenuItem.Name = "RenameToolStripMenuItem"
-        Me.RenameToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
-        Me.RenameToolStripMenuItem.Text = "Rename"
         '
         'Main
         '
@@ -181,4 +188,5 @@ Partial Class Main
     Friend WithEvents RenameToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IconsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ListToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SiteToolStripMenuItem As ToolStripMenuItem
 End Class

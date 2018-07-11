@@ -158,7 +158,7 @@ Partial Class Login
         Me.GroupBox1.Controls.Add(Me.TextBox3)
         Me.GroupBox1.Location = New System.Drawing.Point(5, 310)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(440, 100)
+        Me.GroupBox1.Size = New System.Drawing.Size(440, 107)
         Me.GroupBox1.TabIndex = 13
         Me.GroupBox1.TabStop = False
         '

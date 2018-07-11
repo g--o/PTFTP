@@ -6,6 +6,7 @@ Public Class QueueWindow
     Private user = Login.user
     Private main As Main
     Private opProgress As Action(Of Integer) = AddressOf Me.OperationProgress
+    Public Shared isCancelled = False
 
     Public Sub New(mainForm As Main)
 
@@ -41,6 +42,11 @@ Public Class QueueWindow
     End Sub
 
     Private Sub HandleOperation(fileOp As FtpOperation)
+        isCancelled = False
+        Me.Invoke(CType(Sub()
+                            CancelButton.Enabled = True
+                        End Sub, MethodInvoker))
+
         If fileOp.type = FTP_OPERATION_TYPE.DOWNLOAD Then
             user.DownloadFile(fileOp.fileName, fileOp.destPath + "/" + fileOp.fileName, fileOp.size, Me.opProgress)
         ElseIf fileOp.type = FTP_OPERATION_TYPE.UPLOAD Then
@@ -51,14 +57,24 @@ Public Class QueueWindow
             user.UploadFile(fi, Me.opProgress)
         ElseIf fileOp.type = FTP_OPERATION_TYPE.MOVE Then
             user.MoveFile(fileOp.fileName, fileOp.destPath)
+        ElseIf fileOp.type = FTP_OPERATION_TYPE.RENAME Then
+            user.RenameFile(fileOp.fileName, fileOp.destPath)
         Else
             Console.WriteLine("Bad operation?!")
+        End If
+
+        Dim result = "Finished"
+
+        If isCancelled Then
+            result = "Cancelled"
+            isCancelled = False
         End If
 
         Me.Invoke(CType(Sub()
                             Dim opString = fileOp.ToString()
                             ListBox1.Items.Remove(opString)
-                            ListBox1.Items.Insert(0, "<Finished> " + opString)
+                            ListBox1.Items.Insert(0, "<" + result + "> " + opString)
+                            CancelButton.Enabled = isCancelled
                             main.TriggerUpdate()
                         End Sub, MethodInvoker))
     End Sub
@@ -67,10 +83,27 @@ Public Class QueueWindow
         BackgroundWorker1.ReportProgress(percentage)
     End Sub
 
+    Private Function GetUnitsString(amount) As String
+        Dim units = "KB"
+        Dim speed = amount / 1000.0
+        If (speed - 1000.0 > 0.001) Then
+            speed /= 1000.0
+            units = "MB"
+        End If
+
+        Return Int(speed).ToString() + " " + units
+    End Function
+
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
+        Dim spacing = Environment.NewLine
         Me.Invoke(CType(Sub()
                             ProgressBar1.Value = e.ProgressPercentage
-                            Label1.Text = e.ProgressPercentage.ToString() + " %"
+
+                            Dim percentage = e.ProgressPercentage.ToString() + " %"
+                            Dim speed = "speed: " + GetUnitsString(user.opSpeed) + "/s"
+                            Dim size = "size: " + GetUnitsString(user.opSize)
+
+                            fileDetailLabel.Text = speed + spacing + size
                         End Sub, MethodInvoker))
     End Sub
 
@@ -99,7 +132,8 @@ Public Class QueueWindow
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
         If e.Cancelled Then
             Me.Invoke(CType(Sub()
-                                Label1.Text = "Done"
+                                fileDetailLabel.Text = ""
+                                ProgressBar1.Value = 100
                             End Sub, MethodInvoker))
         Else
             Me.TriggerUpdate()
@@ -107,6 +141,12 @@ Public Class QueueWindow
     End Sub
 
     Private Sub QueueWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        fileDetailLabel.Text = ""
         BackgroundWorker1.WorkerReportsProgress = True
+    End Sub
+
+    Private Sub CancelButton_Click(sender As Object, e As EventArgs) Handles CancelButton.Click
+        CancelButton.Enabled = False
+        isCancelled = True
     End Sub
 End Class

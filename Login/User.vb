@@ -4,6 +4,9 @@ Imports System.Net
 Public Class User
     Private bufferSize As Integer = 4096
 
+    Public Shared opSpeed = 0
+    Public Shared opSize = 0
+
     'create new user
     Sub New(ByVal h As String, ByVal u As String, ByVal p As String, ByVal po As Integer)
 
@@ -92,15 +95,42 @@ Public Class User
         Dim totalRead As Double = read
         Dim buffer(bufferSize) As Byte
 
+        Dim stopWatch = New Stopwatch()
+        Dim totalTime = 0
+        Dim readInMeasure = 0
+        Dim percentage = 0
+        Dim newPercentage = 0
+
+        opSpeed = 0
+        opSize = size
+
         read = srcStream.Read(buffer, 0, buffer.Length)
-        While read > 0
+        While read > 0 And Not QueueWindow.isCancelled
+            stopWatch.Start()
+
             destStream.Write(buffer, 0, read)
+
             If callback IsNot Nothing And size <> 0 Then
                 totalRead += read
-                callback(totalRead / size * 100)
+
+                newPercentage = Int(totalRead / size * 100)
+                If newPercentage > percentage Then
+                    percentage = Math.Min(newPercentage, 100)
+                    callback(percentage)
+                End If
             End If
+
             read = srcStream.Read(buffer, 0, buffer.Length)
+            stopWatch.Stop()
+
+            If stopWatch.ElapsedMilliseconds > 1000 Then
+                opSpeed = (totalRead - readInMeasure) / (stopWatch.ElapsedMilliseconds / 1000.0)
+                readInMeasure = totalRead
+                stopWatch.Reset()
+            End If
         End While
+
+        opSpeed = 0
     End Function
 
     'Close the connection
@@ -164,9 +194,13 @@ Public Class User
             Using ftpStream As IO.Stream = FtpResponse.GetResponseStream
                 Using fileStream As New IO.FileStream(target, FileMode.Create)
                     CopyStreams(ftpStream, fileStream, size, callback)
-                    ftpStream.Close()
-                    fileStream.Flush()
-                    fileStream.Close()
+                    If QueueWindow.isCancelled Then
+                        req.Abort()
+                    Else
+                        ftpStream.Close()
+                        fileStream.Flush()
+                        fileStream.Close()
+                    End If
                 End Using
             End Using
         End Using
@@ -177,10 +211,10 @@ Public Class User
         Return Me.GetRequest(Me.GetCwd() + "/" + name, System.Net.WebRequestMethods.Ftp.DeleteFile)
     End Function
 
-    Function MoveFile(name As String, dest As String)
+    Function RenameFile(name As String, dest As String, Optional destExtra As String = "")
         Dim srcPath = GetCwd() + "/"
         Dim req As FtpWebRequest = CreateRequest(srcPath + name, WebRequestMethods.Ftp.Rename)
-        req.RenameTo = dest + "/" + name
+        req.RenameTo = dest + destExtra
 
         Dim res = ""
         Try
@@ -193,6 +227,10 @@ Public Class User
             MessageBox.Show(ex.Message)
         End Try
 
+    End Function
+
+    Function MoveFile(name As String, dest As String)
+        Return RenameFile(name, dest + "/" + name)
     End Function
 
     Public host As String

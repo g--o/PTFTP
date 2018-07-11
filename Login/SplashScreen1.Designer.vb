@@ -93,6 +93,7 @@ Partial Class SplashScreen1
         Me.ControlBox = False
         Me.Controls.Add(Me.MainLayoutPanel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "SplashScreen1"

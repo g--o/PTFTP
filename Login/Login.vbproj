@@ -32,7 +32,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.1.0.0</ApplicationVersion>
+    <ApplicationVersion>1.2.0.0</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -122,8 +122,18 @@
       <SubType>Form</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="ExternalDropHandler.vb" />
     <Compile Include="FtpOperation.vb" />
+    <Compile Include="PercentProgressBar.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PreferencesForm.Designer.vb">
+      <DependentUpon>PreferencesForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PreferencesForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="QueueWindow.Designer.vb">
       <DependentUpon>QueueWindow.vb</DependentUpon>
     </Compile>
@@ -172,6 +182,9 @@
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.vb</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PreferencesForm.resx">
+      <DependentUpon>PreferencesForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="QueueWindow.resx">
       <DependentUpon>QueueWindow.vb</DependentUpon>

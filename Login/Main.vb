@@ -1,5 +1,6 @@
 Imports System.Collections.Specialized
 Imports System.IO
+Imports System.Text.RegularExpressions
 Imports System.Threading
 
 Public Class Main
@@ -9,10 +10,14 @@ Public Class Main
     Private fileIcon As Bitmap = Bitmap.FromFile("./file.png")
     Private imgScale As Integer = 15
     Private imgProportion As Integer = 1
+
+    Private renameOriginalLabel = ""
     Private Shared downloadQueue As New Queue
     Private externalDropHandler As ExternalDropHandler
     Private user As User = Login.user
+
     Public Shared queueWindow As QueueWindow
+
 
     Public Sub New(res As String)
 
@@ -28,6 +33,8 @@ Public Class Main
 
         externalDropHandler = New ExternalDropHandler(AddressOf Me.AddOp)
     End Sub
+
+    '============== miscellenious
 
     Private Sub AddOp(path As String, Optional ByVal type As FTP_OPERATION_TYPE = FTP_OPERATION_TYPE.DOWNLOAD)
         Dim q = Queue.Synchronized(downloadQueue)
@@ -61,33 +68,18 @@ Public Class Main
         Reload()
     End Sub
 
-    Private Sub ListView1_ItemActivate(sender As ListView, e As EventArgs) _
-     Handles ListView1.ItemActivate
-
-        Dim item = sender.SelectedItems.Item(0)
-        Dim name = item.Text
-
-        If item.ImageIndex = 0 Then
-            ' directory
-            Login.user.SetDirectory(name)
-            RequestEnded("")
-        Else
-            Dim path = OpenFile.GetPath(name, user)
-            Dim file = Nothing
-
-            If openFiles.ContainsKey(path) Then
-                file = openFiles(path)
-            Else
-                file = New OpenFile(name, user)
-                openFiles(path) = file
-            End If
-
-            file.Open()
+    Private Sub listViewRename()
+        If Not ListView1.FocusedItem Is Nothing Then
+            ListView1.LabelEdit = True
+            ListView1.FocusedItem.BeginEdit()
         End If
     End Sub
 
-    Public Sub TriggerUpdate()
-        Reload()
+    Private Sub listViewDelete()
+        For Each item As ListViewItem In ListView1.SelectedItems
+            Dim resp = Login.user.DeleteFile(item.Text)
+            RequestEnded(resp)
+        Next
     End Sub
 
     Private Sub Reload()
@@ -136,6 +128,50 @@ Public Class Main
         Next
     End Sub
 
+    Public Sub TriggerUpdate()
+        Reload()
+    End Sub
+
+    Public Shared Function FilenameIsOK(ByVal fileName As String) As Boolean
+        If fileName = "" Then
+            Return False
+        End If
+
+        Dim file As String = Path.GetFileName(fileName)
+        Dim directory As String = Path.GetDirectoryName(fileName)
+
+        Return Not (file.Intersect(Path.GetInvalidFileNameChars()).Any() _
+                OrElse
+                directory.Intersect(Path.GetInvalidPathChars()).Any())
+    End Function
+
+    '============== gui
+
+    Private Sub ListView1_ItemActivate(sender As ListView, e As EventArgs) _
+     Handles ListView1.ItemActivate
+
+        Dim item = sender.SelectedItems.Item(0)
+        Dim name = item.Text
+
+        If item.ImageIndex = 0 Then
+            ' directory
+            Login.user.SetDirectory(name)
+            RequestEnded("")
+        Else
+            Dim path = OpenFile.GetPath(name, user)
+            Dim file = Nothing
+
+            If openFiles.ContainsKey(path) Then
+                file = openFiles(path)
+            Else
+                file = New OpenFile(name, user)
+                openFiles(path) = file
+            End If
+
+            file.Open()
+        End If
+    End Sub
+
     'Form loading
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ContextMenuStrip1.Enabled = False
@@ -161,6 +197,8 @@ Public Class Main
         ab.ShowDialog()
     End Sub
 
+    '============ list view stuff
+
     Private Sub ListView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListView1.SelectedIndexChanged
         If ListView1.SelectedItems.Count() = 0 Then
             ContextMenuStrip1.Enabled = False
@@ -180,15 +218,46 @@ Public Class Main
         ListView1.View = View.List
     End Sub
 
-    Private Sub RenameToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RenameToolStripMenuItem.Click
+    Private Sub ListView_BeforeLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.BeforeLabelEdit
+        renameOriginalLabel = ListView1.FocusedItem.Text
+    End Sub
+
+    Private Sub ListView_AfterLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.AfterLabelEdit
+        ListView1.LabelEdit = False
+
+        If e.Label Is Nothing Then
+            Return
+        End If
+
+        If e.Label = renameOriginalLabel Or Not FilenameIsOK(e.Label) Then
+            e.CancelEdit = True
+            Return
+        End If
+
+        queueWindow.EnqueueOperation(New FtpOperation(renameOriginalLabel, e.Label, FTP_OPERATION_TYPE.RENAME))
+        queueWindow.TriggerUpdate()
+    End Sub
+
+
+    Private Sub ListView_KeyDown(sender As Object, e As KeyEventArgs) Handles ListView1.KeyDown
+        If e.KeyCode = Keys.F2 Then
+            listViewRename()
+        ElseIf e.KeyCode = Keys.F5 Then
+            Reload()
+        ElseIf e.KeyCode = Keys.Delete Then
+            listViewDelete()
+        End If
 
     End Sub
 
+    '=============== context menu
+
+    Private Sub RenameToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RenameToolStripMenuItem.Click
+        listViewRename()
+    End Sub
+
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
-        For Each item As ListViewItem In ListView1.SelectedItems
-            Dim resp = Login.user.DeleteFile(item.Text)
-            RequestEnded(resp)
-        Next
+        listViewDelete()
     End Sub
 
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
@@ -197,7 +266,7 @@ Public Class Main
         End If
     End Sub
 
-    'drag n drop
+    '=============== drag n drop
     Private Sub ListView1_DragEnter(sender As Object, e As DragEventArgs) Handles ListView1.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
@@ -252,9 +321,19 @@ Public Class Main
 
     End Sub
 
+    '=============== closing stuff
+
     Private Sub Main_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         System.IO.Directory.Delete("tmp", True)
         queueWindow.Close()
     End Sub
 
+    Private Sub SiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SiteToolStripMenuItem.Click
+        Process.Start("http://ptftp.net")
+    End Sub
+
+    Private Sub PreferencesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreferencesToolStripMenuItem.Click
+        Dim preferences = New PreferencesForm()
+        preferences.Show()
+    End Sub
 End Class

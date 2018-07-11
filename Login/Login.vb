@@ -3,7 +3,7 @@
 Public Class Login
 
     Public user As User
-
+    Public language = "English"
 
     Private Sub ListBox1_DoubleClick(sender As ListBox, e As EventArgs) Handles ListBox1.DoubleClick
         If ListBox1.SelectedItems.Count > 0 Then
@@ -11,51 +11,52 @@ Public Class Login
         End If
     End Sub
 
-    'יציאה
+    'exit
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Application.Exit()
     End Sub
 
-    'התחברות
+    'actual login
 
     Private Sub Login()
         Dim res As String
-        'התחברות עצמה
+
         Try
             user = New User(TextBox1.Text, TextBox2.Text, TextBox3.Text, NumericUpDown1.Value)
             res = user.Auth()
         Catch ex As Exception
-            MessageBox.Show("Failed to connect" + Environment.NewLine + ex.Message) ' שגיאת התחברות
-            Return 'צא מהקוד
+            MessageBox.Show("Failed to connect" + Environment.NewLine + ex.Message) ' login error
+            Return
         End Try
 
-        'מחביא הכל
+        'hides everything
         Me.Hide()
-        'מציג דף ראשי
+
+        'show main form
         Dim m = New Main(res)
         m.ShowDialog()
         Me.Show()
     End Sub
 
-    'כפתור התחברות
+    'login button
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Login()
     End Sub
 
-    'שמירה
+    'save
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Try
             If (Not TextBox1.Text.Equals("")) Then
                 Dim user = New User(TextBox1.Text, TextBox2.Text, TextBox3.Text, NumericUpDown1.Value)
-                'מוחקים
+                'delete
                 Dim fileName = "Users\" + user.GetPrettyHost() + ".txt"
 
                 If My.Computer.FileSystem.FileExists(fileName) Then
                     My.Computer.FileSystem.DeleteFile(fileName)
                 End If
-                'כותבים
+                'writing to file
                 My.Computer.FileSystem.WriteAllText(fileName, user.username + Environment.NewLine + user.password + Environment.NewLine + user.port.ToString(), True)
-                'מוסיפים לרשימה
+                'adding to list
                 ListBox1.Items.Add(user.GetPrettyHost())
             End If
         Catch ex As Exception
@@ -63,7 +64,7 @@ Public Class Login
         End Try
     End Sub
 
-    'בחירה בפרופיל
+    'profile selection
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         Try
             If ListBox1.SelectedIndex.Equals(-1) Then
@@ -138,30 +139,30 @@ Public Class Login
         End If
     End Sub
 
-    'טעינה של הכל
+    'form load
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InstallUpdateSyncWithInfo()
 
-        'כבה קליק ימני
+        'disable right click
         ContextMenuStrip1.Enabled = False
-        ' תרשום לי את כל הקבצים
+        'list all profile files
         Dim files = My.Computer.FileSystem.GetFiles("Users")
 
-        For Each file In files ' לכל קובץ ברשימה
-            Dim host = file.Substring(0, file.Length - 4) ' מעיפים .txt
-            host = host.Substring(host.LastIndexOf("\") + 1, host.Length - host.LastIndexOf("\") - 1) 'מעיפים את המיקום תיקייה
-            ListBox1.Items.Add(host) ' תוסיף לרשימה
+        For Each file In files
+            Dim host = file.Substring(0, file.Length - 4) ' get rid of .txt
+            host = host.Substring(host.LastIndexOf("\") + 1, host.Length - host.LastIndexOf("\") - 1) 'strip directory path
+            ListBox1.Items.Add(host) 'add to list
         Next
     End Sub
 
-    'קליק ימני
+    'right click
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
         If ListBox1.SelectedIndex.Equals(-1) Then
             ContextMenuStrip1.Hide()
         End If
     End Sub
 
-    'מחיקה
+    'deletion
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
         Try
             My.Computer.FileSystem.DeleteFile("Users\" + ListBox1.SelectedItem + ".txt")

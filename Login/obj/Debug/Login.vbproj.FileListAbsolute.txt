@@ -84,7 +84,6 @@ D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PT
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\PTFTP.exe
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\PTFTP.pdb
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\PTFTP.xml
-D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\Login.vbprojResolveAssemblyReference.cache
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.AboutBox1.resources
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.QueueWindow.resources
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.Login.resources
@@ -99,3 +98,5 @@ D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PT
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.xml
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.pdb
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\App.config
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\Login.vbprojResolveAssemblyReference.cache
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.PreferencesForm.resources

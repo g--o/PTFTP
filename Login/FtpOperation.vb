@@ -2,6 +2,7 @@
     UPLOAD
     DOWNLOAD
     MOVE
+    RENAME
 End Enum
 
 Public Class FtpOperation
@@ -27,6 +28,9 @@ Public Class FtpOperation
             s = "Upload"
         ElseIf type = FTP_OPERATION_TYPE.MOVE Then
             s = "Move"
+            extras += " -> " + destPath
+        ElseIf type = FTP_OPERATION_TYPE.RENAME Then
+            s = "Rename"
             extras += " -> " + destPath
         Else
             s = "Invalid Operation"

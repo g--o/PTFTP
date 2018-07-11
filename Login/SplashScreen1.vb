@@ -19,9 +19,9 @@
         Version.Text = System.String.Format(Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor)
 
         'Copyright info
-        Copyright.Text = My.Application.Info.Copyright
+        Copyright.Text = My.Application.Info.Copyright + " " + My.Application.Info.CompanyName
 
-        'טוענים דברים בראבק
+        'loading stuff
         If Not My.Computer.FileSystem.DirectoryExists(usersFolder) Then
             My.Computer.FileSystem.CreateDirectory(usersFolder)
         End If
