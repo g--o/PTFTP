@@ -4,6 +4,8 @@ Public Class Login
 
     Public user As User
     Public language = "English"
+    Private profilesPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\PTFTP\"
+    Private extension = ".ptftp"
 
     Private Sub ListBox1_DoubleClick(sender As ListBox, e As EventArgs) Handles ListBox1.DoubleClick
         If ListBox1.SelectedItems.Count > 0 Then
@@ -49,7 +51,7 @@ Public Class Login
             If (Not TextBox1.Text.Equals("")) Then
                 Dim user = New User(TextBox1.Text, TextBox2.Text, TextBox3.Text, NumericUpDown1.Value)
                 'delete
-                Dim fileName = "Users\" + user.GetPrettyHost() + ".txt"
+                Dim fileName = profilesPath + user.GetPrettyHost() + extension
 
                 If My.Computer.FileSystem.FileExists(fileName) Then
                     My.Computer.FileSystem.DeleteFile(fileName)
@@ -75,7 +77,7 @@ Public Class Login
             End If
 
             Dim host = ListBox1.SelectedItem.ToString()
-            Dim fileReader = My.Computer.FileSystem.ReadAllText("Users\" + host + ".txt")
+            Dim fileReader = My.Computer.FileSystem.ReadAllText(profilesPath + host + extension)
             Dim elements = fileReader.ToString().Split(Environment.NewLine)
 
             Dim user = New User(host, elements.GetValue(0), elements.GetValue(1), Integer.Parse(elements.GetValue(2)))
@@ -145,11 +147,20 @@ Public Class Login
 
         'disable right click
         ContextMenuStrip1.Enabled = False
+
+        If Not My.Computer.FileSystem.DirectoryExists(profilesPath) Then
+            My.Computer.FileSystem.CreateDirectory(profilesPath)
+        End If
+
         'list all profile files
-        Dim files = My.Computer.FileSystem.GetFiles("Users")
+        Dim files = My.Computer.FileSystem.GetFiles(profilesPath)
 
         For Each file In files
-            Dim host = file.Substring(0, file.Length - 4) ' get rid of .txt
+            If Not file.EndsWith(extension) Then
+                Continue For
+            End If
+
+            Dim host = file.Substring(0, file.Length - extension.Length) ' get rid of extension
             host = host.Substring(host.LastIndexOf("\") + 1, host.Length - host.LastIndexOf("\") - 1) 'strip directory path
             ListBox1.Items.Add(host) 'add to list
         Next
@@ -165,7 +176,7 @@ Public Class Login
     'deletion
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
         Try
-            My.Computer.FileSystem.DeleteFile("Users\" + ListBox1.SelectedItem + ".txt")
+            My.Computer.FileSystem.DeleteFile(profilesPath + ListBox1.SelectedItem + extension)
             ListBox1.Items.RemoveAt(ListBox1.SelectedIndex)
         Catch
             MessageBox.Show("Failed to delete save.")

@@ -111,3 +111,4 @@ D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PT
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\PTFTP.xml
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\PTFTP.pdb
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\Login.vbprojResolveAssemblyReference.cache
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\PTFTP.PreferencesForm.resources

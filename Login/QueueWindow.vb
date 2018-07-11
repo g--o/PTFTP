@@ -143,6 +143,7 @@ Public Class QueueWindow
     Private Sub QueueWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fileDetailLabel.Text = ""
         BackgroundWorker1.WorkerReportsProgress = True
+        ProgressBar1.Value = 0
     End Sub
 
     Private Sub CancelButton_Click(sender As Object, e As EventArgs) Handles CancelButton.Click
