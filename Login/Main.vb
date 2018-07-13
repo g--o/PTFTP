@@ -11,13 +11,12 @@ Public Class Main
     Private imgScale As Integer = 15
     Private imgProportion As Integer = 1
 
-    Private renameOriginalLabel = ""
-    Private Shared downloadQueue As New Queue
+    Private renameOriginalLabel As String = ""
+    Private Shared opFileQueue As New Queue
     Private externalDropHandler As ExternalDropHandler
     Private user As User = Login.user
 
     Public Shared queueWindow As QueueWindow
-
 
     Public Sub New(res As String)
 
@@ -31,18 +30,22 @@ Public Class Main
             System.IO.Directory.Delete("tmp", True)
         End If
 
-        externalDropHandler = New ExternalDropHandler(AddressOf Me.AddOp)
+        externalDropHandler = New ExternalDropHandler(AddressOf Me.DownloadCallback)
     End Sub
 
     '============== miscellenious
 
-    Private Sub AddOp(path As String, Optional ByVal type As FTP_OPERATION_TYPE = FTP_OPERATION_TYPE.DOWNLOAD)
-        Dim q = Queue.Synchronized(downloadQueue)
+    Public Shared Sub VisitWebsite()
+        Process.Start("http://ptftp.net")
+    End Sub
+
+    Private Sub AddOp(dest As String, type As FTP_OPERATION_TYPE)
+        Dim q = Queue.Synchronized(opFileQueue)
 
         SyncLock q.SyncRoot
             While q.Count > 0
-                Dim fileName = q.Dequeue()
-                queueWindow.EnqueueOperation(New FtpOperation(fileName, path, type, files.Item(fileName).Size))
+                Dim pendingFile As PendingOpFile = q.Dequeue()
+                queueWindow.EnqueueOperation(New FtpOperation(pendingFile, dest + "/" + pendingFile.name, type))
             End While
             q.Clear()
         End SyncLock
@@ -50,12 +53,17 @@ Public Class Main
         queueWindow.TriggerUpdate()
     End Sub
 
-    Private Sub PrepareDownload()
-        ' prepare download queue
-        Dim q As Queue = Queue.Synchronized(downloadQueue)
+    Private Sub DownloadCallback(path As String)
+        AddOp(path, FTP_OPERATION_TYPE.DOWNLOAD)
+    End Sub
+
+    Private Sub PrepareOpFileQueue()
+        ' prepare op file queue
+        Dim q As Queue = Queue.Synchronized(opFileQueue)
         SyncLock q.SyncRoot
             For Each item As ListViewItem In ListView1.SelectedItems
-                q.Enqueue(item.Text)
+                Dim f As FtpFile = files(item.Text)
+                q.Enqueue(New PendingOpFile(user.GetCwd(), f))
             Next
         End SyncLock
     End Sub
@@ -77,7 +85,7 @@ Public Class Main
 
     Private Sub listViewDelete()
         For Each item As ListViewItem In ListView1.SelectedItems
-            Dim resp = Login.user.DeleteFile(item.Text)
+            Dim resp = Login.user.DeleteFile(user.GetCwd() + "/" + item.Text)
             RequestEnded(resp)
         Next
     End Sub
@@ -170,6 +178,8 @@ Public Class Main
 
             file.Open()
         End If
+
+        ContextMenuStrip1.Enabled = False
     End Sub
 
     'Form loading
@@ -234,7 +244,8 @@ Public Class Main
             Return
         End If
 
-        queueWindow.EnqueueOperation(New FtpOperation(renameOriginalLabel, e.Label, FTP_OPERATION_TYPE.RENAME))
+        Dim opFile = New PendingOpFile(user.GetCwd(), renameOriginalLabel)
+        queueWindow.EnqueueOperation(New FtpOperation(opFile, e.Label, FTP_OPERATION_TYPE.RENAME))
         queueWindow.TriggerUpdate()
     End Sub
 
@@ -300,7 +311,8 @@ Public Class Main
             If String.IsNullOrWhiteSpace(fileInfo.Extension) Then Exit Sub
             Dim resp = ""
             If sender Is ListView1 Then
-                queueWindow.EnqueueOperation(New FtpOperation(fileInfo.Name, fileInfo.FullName, FTP_OPERATION_TYPE.UPLOAD, fileInfo.Length))
+                Dim opFile = New PendingOpFile(fileInfo.DirectoryName, fileInfo.Name, fileInfo.Length)
+                queueWindow.EnqueueOperation(New FtpOperation(opFile, user.GetCwd() + "/" + fileInfo.Name, FTP_OPERATION_TYPE.UPLOAD))
             End If
         Next
 
@@ -315,7 +327,7 @@ Public Class Main
         Dim dta = New DataObject(DataFormats.FileDrop, fileas)
         dta.SetData(DataFormats.StringFormat, fileas)
 
-        PrepareDownload()
+        PrepareOpFileQueue()
 
         DoDragDrop(dta, DragDropEffects.Copy)
 
@@ -329,7 +341,7 @@ Public Class Main
     End Sub
 
     Private Sub SiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SiteToolStripMenuItem.Click
-        Process.Start("http://ptftp.net")
+        Main.VisitWebsite()
     End Sub
 
     Private Sub PreferencesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreferencesToolStripMenuItem.Click

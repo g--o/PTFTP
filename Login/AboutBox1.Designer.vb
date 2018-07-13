@@ -36,8 +36,9 @@ Partial Class AboutBox1
         Me.LabelProductName = New System.Windows.Forms.Label()
         Me.LabelVersion = New System.Windows.Forms.Label()
         Me.LabelCopyright = New System.Windows.Forms.Label()
-        Me.LabelCompanyName = New System.Windows.Forms.Label()
         Me.OKButton = New System.Windows.Forms.Button()
+        Me.LabelCompanyName = New System.Windows.Forms.Label()
+        Me.siteLink = New System.Windows.Forms.LinkLabel()
         Me.TableLayoutPanel.SuspendLayout()
         CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -51,8 +52,9 @@ Partial Class AboutBox1
         Me.TableLayoutPanel.Controls.Add(Me.LabelProductName, 1, 0)
         Me.TableLayoutPanel.Controls.Add(Me.LabelVersion, 1, 1)
         Me.TableLayoutPanel.Controls.Add(Me.LabelCopyright, 1, 2)
-        Me.TableLayoutPanel.Controls.Add(Me.LabelCompanyName, 1, 3)
         Me.TableLayoutPanel.Controls.Add(Me.OKButton, 1, 5)
+        Me.TableLayoutPanel.Controls.Add(Me.LabelCompanyName, 1, 3)
+        Me.TableLayoutPanel.Controls.Add(Me.siteLink, 1, 4)
         Me.TableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel.Location = New System.Drawing.Point(9, 9)
         Me.TableLayoutPanel.Name = "TableLayoutPanel"
@@ -114,6 +116,16 @@ Partial Class AboutBox1
         Me.LabelCopyright.Text = "Copyright"
         Me.LabelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'OKButton
+        '
+        Me.OKButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.OKButton.Location = New System.Drawing.Point(318, 232)
+        Me.OKButton.Name = "OKButton"
+        Me.OKButton.Size = New System.Drawing.Size(75, 23)
+        Me.OKButton.TabIndex = 0
+        Me.OKButton.Text = "&OK"
+        '
         'LabelCompanyName
         '
         Me.LabelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill
@@ -126,15 +138,15 @@ Partial Class AboutBox1
         Me.LabelCompanyName.Text = "Company Name"
         Me.LabelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'OKButton
+        'siteLink
         '
-        Me.OKButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.OKButton.Location = New System.Drawing.Point(318, 232)
-        Me.OKButton.Name = "OKButton"
-        Me.OKButton.Size = New System.Drawing.Size(75, 23)
-        Me.OKButton.TabIndex = 0
-        Me.OKButton.Text = "&OK"
+        Me.siteLink.AutoSize = True
+        Me.siteLink.Location = New System.Drawing.Point(133, 100)
+        Me.siteLink.Name = "siteLink"
+        Me.siteLink.Size = New System.Drawing.Size(76, 13)
+        Me.siteLink.TabIndex = 1
+        Me.siteLink.TabStop = True
+        Me.siteLink.Text = "official website"
         '
         'AboutBox1
         '
@@ -152,9 +164,11 @@ Partial Class AboutBox1
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "AboutBox1"
         Me.TableLayoutPanel.ResumeLayout(False)
+        Me.TableLayoutPanel.PerformLayout()
         CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
+    Friend WithEvents siteLink As LinkLabel
 End Class

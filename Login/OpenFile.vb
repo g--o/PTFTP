@@ -2,6 +2,7 @@
 
     Private FSM As IO.FileSystemWatcher
     Private remotePath As String
+    Private localFileName As String
     Private localPath As String
     Private name As String
     Private user As User
@@ -17,7 +18,8 @@
         Me.name = name
 
         Me.remotePath = GetPath(Me.name, Me.user)
-        Me.localPath = "tmp\" + user.GetPrettyCwd() + "__" + Me.name
+        Me.localFileName = user.GetPrettyCwd() + "__" + Me.name
+        Me.localPath = "tmp\" + localFileName
     End Sub
 
     Public Function Open()
@@ -32,8 +34,8 @@
             Return False
         End If
 
-        Me.user.DownloadFile(Me.name, localPath)
-        FSM = New IO.FileSystemWatcher("tmp", Me.user.GetPrettyCwd() + "__" + Me.name)
+        Me.user.DownloadFile(Me.remotePath, localPath)
+        FSM = New IO.FileSystemWatcher("tmp", Me.localFileName)
         FSM.EnableRaisingEvents = True
         FSM.NotifyFilter = IO.NotifyFilters.LastWrite
         AddHandler FSM.Changed, AddressOf OnSave
@@ -51,8 +53,13 @@
         If e.ChangeType = IO.WatcherChangeTypes.Changed Then
             Threading.Thread.Sleep(1000)
             Dim fileInfo = New IO.FileInfo(Me.localPath)
-            'Main.queueWindow.EnqueueOperation(New FtpOperation(Me.name, Me.remotePath, FTP_OPERATION_TYPE.UPLOAD, fileInfo.Length))
+
+            ''' Queued way:
+            'Dim opFile = New PendingOpFile(fileInfo.DirectoryName, fileInfo.Name, fileInfo.Length)
+            'Main.queueWindow.EnqueueOperation(New FtpOperation(opFile, Me.remotePath, FTP_OPERATION_TYPE.UPLOAD))
             'Main.queueWindow.TriggerUpdate()
+
+            ''' Seperate thread:
             Me.user.UploadInto(Me.localPath, Me.remotePath)
             Main.queueWindow.Invoke(CType(Sub()
                                               Main.queueWindow.ListBox1.Items.Insert(0, "<Edited> " + Me.remotePath)

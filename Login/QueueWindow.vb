@@ -42,23 +42,23 @@ Public Class QueueWindow
     End Sub
 
     Private Sub HandleOperation(fileOp As FtpOperation)
+        Dim opString = fileOp.ToString()
+
         isCancelled = False
         Me.Invoke(CType(Sub()
                             CancelButton.Enabled = True
+                            ListBox1.SetSelected(ListBox1.FindString(opString), True)
                         End Sub, MethodInvoker))
 
         If fileOp.type = FTP_OPERATION_TYPE.DOWNLOAD Then
-            user.DownloadFile(fileOp.fileName, fileOp.destPath + "/" + fileOp.fileName, fileOp.size, Me.opProgress)
+            user.DownloadFile(fileOp.file.GetURI(), fileOp.destPath, fileOp.file.size, Me.opProgress)
         ElseIf fileOp.type = FTP_OPERATION_TYPE.UPLOAD Then
-            Dim fi = New FileInfo(fileOp.destPath)
-            If fi.Length <> fileOp.size Then
-                ErrorAndQuit("File length mismatch!")
-            End If
-            user.UploadFile(fi, Me.opProgress)
+            Dim windowsURI = fileOp.file.path + "\" + fileOp.file.name
+            user.UploadFile(windowsURI, fileOp.destPath, fileOp.file.size, Me.opProgress)
         ElseIf fileOp.type = FTP_OPERATION_TYPE.MOVE Then
-            user.MoveFile(fileOp.fileName, fileOp.destPath)
+            user.MoveFile(fileOp.file.GetURI(), fileOp.destPath)
         ElseIf fileOp.type = FTP_OPERATION_TYPE.RENAME Then
-            user.RenameFile(fileOp.fileName, fileOp.destPath)
+            user.RenameFile(fileOp.file.GetURI(), fileOp.destPath)
         Else
             Console.WriteLine("Bad operation?!")
         End If
@@ -71,7 +71,6 @@ Public Class QueueWindow
         End If
 
         Me.Invoke(CType(Sub()
-                            Dim opString = fileOp.ToString()
                             ListBox1.Items.Remove(opString)
                             ListBox1.Items.Insert(0, "<" + result + "> " + opString)
                             CancelButton.Enabled = isCancelled

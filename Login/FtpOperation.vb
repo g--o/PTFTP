@@ -7,18 +7,16 @@ End Enum
 
 Public Class FtpOperation
     Public type As FTP_OPERATION_TYPE
-    Public fileName As String
+    Public file As PendingOpFile
     Public destPath As String
-    Public size As Integer
 
-    Public Sub New(fileName As String, destPath As String, type As FTP_OPERATION_TYPE, Optional size As Integer = 0)
+    Public Sub New(file As PendingOpFile, destPath As String, type As FTP_OPERATION_TYPE)
         Me.type = type
-        Me.fileName = fileName
+        Me.file = file
         Me.destPath = destPath
-        Me.size = size
     End Sub
 
-    Public Function ToString() As String
+    Public Overrides Function ToString() As String
         Dim s = ""
         Dim extras = ""
 
@@ -36,7 +34,7 @@ Public Class FtpOperation
             s = "Invalid Operation"
         End If
 
-        s += ": " + fileName
+        s += ": " + file.name
 
         s += extras
 

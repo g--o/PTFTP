@@ -13,7 +13,7 @@ Public Class ExternalDropHandler
 
         If Not IO.File.Exists(My.Application.Info.DirectoryPath & "\" & tmpFileName) Then
             IO.File.Create(My.Application.Info.DirectoryPath & "\" & tmpFileName)
-            SetAttr(My.Application.Info.DirectoryPath & "\" & tmpFileName, FileAttribute.Hidden + FileAttribute.System)
+            SetAttr(My.Application.Info.DirectoryPath & "\" & tmpFileName, FileAttribute.Normal)
         End If
 
     End Sub

@@ -25,4 +25,8 @@
     Private Sub LabelProductName_Click(sender As Object, e As EventArgs) Handles LabelProductName.Click
 
     End Sub
+
+    Private Sub siteLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles siteLink.LinkClicked
+        Main.VisitWebsite()
+    End Sub
 End Class

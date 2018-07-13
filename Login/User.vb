@@ -31,7 +31,7 @@ Public Class User
         Return host.Substring(6, host.Length - 6)
     End Function
 
-    Function GetCwd()
+    Function GetCwd() As String
         Return Me.host + cwd
     End Function
 
@@ -167,16 +167,11 @@ Public Class User
     End Function
 
     'Upload to current dir
-    Function UploadFile(fileInfo As FileInfo, Optional callback As Action(Of Integer) = Nothing)
-        Dim path = fileInfo.FullName
-        Dim name = FileInfo.Name
-        Dim size = FileInfo.Length
-
-        Dim uri = Me.GetCwd() + "/" + name
-        Dim req = CreateRequest(uri, System.Net.WebRequestMethods.Ftp.UploadFile)
+    Function UploadFile(filePath As String, destUri As String, Optional size As Integer = 0, Optional callback As Action(Of Integer) = Nothing)
+        Dim req = CreateRequest(destUri, System.Net.WebRequestMethods.Ftp.UploadFile)
         req.UseBinary = True
 
-        Using fileStream As Stream = File.OpenRead(path)
+        Using fileStream As Stream = File.OpenRead(filePath)
             Using ftpStream As Stream = req.GetRequestStream()
                 CopyStreams(fileStream, ftpStream, size, callback)
                 ftpStream.Close()
@@ -186,13 +181,13 @@ Public Class User
     End Function
 
     'Download
-    Function DownloadFile(fileName As String, target As String, Optional size As Integer = 0, Optional callback As Action(Of Integer) = Nothing)
-        Dim req = Me.CreateRequest(Me.GetCwd() + "/" + fileName, System.Net.WebRequestMethods.Ftp.DownloadFile)
+    Function DownloadFile(uri As String, dest As String, Optional size As Integer = 0, Optional callback As Action(Of Integer) = Nothing)
+        Dim req = Me.CreateRequest(uri, System.Net.WebRequestMethods.Ftp.DownloadFile)
         req.UseBinary = True
         ' read stream and write to file
         Using FtpResponse As FtpWebResponse = CType(req.GetResponse, FtpWebResponse)
             Using ftpStream As IO.Stream = FtpResponse.GetResponseStream
-                Using fileStream As New IO.FileStream(target, FileMode.Create)
+                Using fileStream As New IO.FileStream(dest, FileMode.Create)
                     CopyStreams(ftpStream, fileStream, size, callback)
                     If QueueWindow.isCancelled Then
                         req.Abort()
@@ -208,13 +203,12 @@ Public Class User
 
     'Delete file
     Function DeleteFile(name As String)
-        Return Me.GetRequest(Me.GetCwd() + "/" + name, System.Net.WebRequestMethods.Ftp.DeleteFile)
+        Return Me.GetRequest(name, System.Net.WebRequestMethods.Ftp.DeleteFile)
     End Function
 
-    Function RenameFile(name As String, dest As String, Optional destExtra As String = "")
-        Dim srcPath = GetCwd() + "/"
-        Dim req As FtpWebRequest = CreateRequest(srcPath + name, WebRequestMethods.Ftp.Rename)
-        req.RenameTo = dest + destExtra
+    Function RenameFile(uri As String, dest As String)
+        Dim req As FtpWebRequest = CreateRequest(uri, WebRequestMethods.Ftp.Rename)
+        req.RenameTo = dest
 
         Dim res = ""
         Try
@@ -229,8 +223,8 @@ Public Class User
 
     End Function
 
-    Function MoveFile(name As String, dest As String)
-        Return RenameFile(name, dest + "/" + name)
+    Function MoveFile(uri As String, dest As String)
+        Return RenameFile(uri, dest)
     End Function
 
     Public host As String
