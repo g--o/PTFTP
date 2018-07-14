@@ -72,7 +72,9 @@ Public Class Main
     End Sub
 
     Private Sub DownloadCallback(path As String)
-        AddOp(path, FTP_OPERATION_TYPE.DOWNLOAD)
+        If opFileQueue.Count > 0 Then
+            AddOp(path, FTP_OPERATION_TYPE.DOWNLOAD)
+        End If
     End Sub
 
     Private Sub PrepareOpFileQueue()

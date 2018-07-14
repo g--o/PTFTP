@@ -6,6 +6,257 @@ PTFTP
 </name>
 </assembly>
 <members>
+<member name="T:PTFTP.My.Resources.GlobalStrings">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.about">
+<summary>
+  Looks up a localized string similar to About.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.apply">
+<summary>
+  Looks up a localized string similar to Apply.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.cancel">
+<summary>
+  Looks up a localized string similar to Cancel.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.cancelled">
+<summary>
+  Looks up a localized string similar to Cancelled.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.changes_after_reset">
+<summary>
+  Looks up a localized string similar to Changes will take effect after restart.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.conn_limit">
+<summary>
+  Looks up a localized string similar to Connection limit.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.connect">
+<summary>
+  Looks up a localized string similar to Connect.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.copyright">
+<summary>
+  Looks up a localized string similar to Copyright.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.delete">
+<summary>
+  Looks up a localized string similar to Delete.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.download">
+<summary>
+  Looks up a localized string similar to Download.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.edit">
+<summary>
+  Looks up a localized string similar to Edit.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.edited">
+<summary>
+  Looks up a localized string similar to Edited.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.err_bad_op">
+<summary>
+  Looks up a localized string similar to Bad operation !!!.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.err_bad_queue_count">
+<summary>
+  Looks up a localized string similar to Bad queue size!.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.err_cant_connect">
+<summary>
+  Looks up a localized string similar to Failed to connect!.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.err_cant_delete">
+<summary>
+  Looks up a localized string similar to Failed to delete!.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.err_cant_load">
+<summary>
+  Looks up a localized string similar to Couldn&apos;t load!.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.err_cant_save">
+<summary>
+  Looks up a localized string similar to Couldn&apos;t save!.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.err_file_in_use">
+<summary>
+  Looks up a localized string similar to Sorry, file is used right now. Please try again in a few seconds..
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.exitText">
+<summary>
+  Looks up a localized string similar to Exit.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.file">
+<summary>
+  Looks up a localized string similar to File.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.finished">
+<summary>
+  Looks up a localized string similar to Finished.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.help">
+<summary>
+  Looks up a localized string similar to Help.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.host">
+<summary>
+  Looks up a localized string similar to Host.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.icons">
+<summary>
+  Looks up a localized string similar to Icons.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.invalid_op">
+<summary>
+  Looks up a localized string similar to Invalid operation.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.language">
+<summary>
+  Looks up a localized string similar to Language.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.list">
+<summary>
+  Looks up a localized string similar to List.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.login">
+<summary>
+  Looks up a localized string similar to Login.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.move">
+<summary>
+  Looks up a localized string similar to Move.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.ok">
+<summary>
+  Looks up a localized string similar to OK.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.op_queue">
+<summary>
+  Looks up a localized string similar to Operation Queue.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.password">
+<summary>
+  Looks up a localized string similar to Password.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.port">
+<summary>
+  Looks up a localized string similar to Port.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.preferences">
+<summary>
+  Looks up a localized string similar to Preferences.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.rename">
+<summary>
+  Looks up a localized string similar to Rename.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.renameAction">
+<summary>
+  Looks up a localized string similar to Rename.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.save">
+<summary>
+  Looks up a localized string similar to Save.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.size">
+<summary>
+  Looks up a localized string similar to Size.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.speed">
+<summary>
+  Looks up a localized string similar to Speed.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.unlimited">
+<summary>
+  Looks up a localized string similar to Unlimited.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.upload">
+<summary>
+  Looks up a localized string similar to Upload.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.username">
+<summary>
+  Looks up a localized string similar to Username.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.version">
+<summary>
+  Looks up a localized string similar to Version.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.view">
+<summary>
+  Looks up a localized string similar to View.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.webLink">
+<summary>
+  Looks up a localized string similar to Official website.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.website">
+<summary>
+  Looks up a localized string similar to Website.
+</summary>
+</member>
 <member name="T:PTFTP.My.Resources.Resources">
 <summary>
   A strongly-typed resource class, for looking up localized strings, etc.

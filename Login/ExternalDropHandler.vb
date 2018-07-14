@@ -2,6 +2,7 @@ Public Class ExternalDropHandler
 
     Public tmpFileExtension = ".ptftpdl9"
     Public tmpFileName = "ptftp" & tmpFileExtension
+    Public tmpFilePath = My.Application.Info.DirectoryPath & "\" & tmpFileName
 
     Private FSMArr = New List(Of IO.FileSystemWatcher)
     Private callback As Action(Of String)
@@ -11,9 +12,9 @@ Public Class ExternalDropHandler
 
         setupFSMs()
 
-        If Not IO.File.Exists(My.Application.Info.DirectoryPath & "\" & tmpFileName) Then
-            IO.File.Create(My.Application.Info.DirectoryPath & "\" & tmpFileName)
-            SetAttr(My.Application.Info.DirectoryPath & "\" & tmpFileName, FileAttribute.Normal)
+        If Not IO.File.Exists(tmpFilePath) Then
+            IO.File.Create(tmpFilePath)
+            SetAttr(tmpFilePath, FileAttribute.Normal)
         End If
 
     End Sub
@@ -44,6 +45,10 @@ Public Class ExternalDropHandler
     End Sub
 
     Sub OnChanged(ByVal source As Object, ByVal e As IO.FileSystemEventArgs)
+        If e.FullPath = tmpFilePath Then
+            Return
+        End If
+
         Dim output = IO.Path.GetDirectoryName(e.FullPath)
         Dim locator = output.Trim("'") & "\" & tmpFileName
 

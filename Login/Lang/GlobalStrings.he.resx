@@ -255,4 +255,7 @@
   <data name="language" xml:space="preserve">
     <value>שפה</value>
   </data>
+  <data name="err_file_in_use" xml:space="preserve">
+    <value>מצטערים, הקובץ נמצא בשימוש כרגע. נסה שוב מאוחר יותר.</value>
+  </data>
 </root>

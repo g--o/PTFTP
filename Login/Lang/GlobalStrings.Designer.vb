@@ -227,6 +227,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Sorry, file is used right now. Please try again in a few seconds..
+        '''</summary>
+        Friend Shared ReadOnly Property err_file_in_use() As String
+            Get
+                Return ResourceManager.GetString("err_file_in_use", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Exit.
         '''</summary>
         Friend Shared ReadOnly Property exitText() As String

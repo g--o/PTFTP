@@ -255,4 +255,7 @@
   <data name="language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="err_file_in_use" xml:space="preserve">
+    <value>Sorry, file is used right now. Please try again in a few seconds.</value>
+  </data>
 </root>

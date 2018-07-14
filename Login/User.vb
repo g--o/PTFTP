@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports PTFTP.My.Resources
 
 Public Class User
     Private bufferSize As Integer = 4096
@@ -159,7 +160,7 @@ Public Class User
         Try
             file = System.IO.File.ReadAllBytes(localPath)
         Catch ex As Exception
-            MessageBox.Show("Sorry, file is used right now. Please try again in a few seconds.")
+            MessageBox.Show(GlobalStrings.err_file_in_use)
             Return False
         End Try
 

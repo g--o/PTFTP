@@ -112,3 +112,7 @@ D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PT
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\PTFTP.pdb
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\Login.vbprojResolveAssemblyReference.cache
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\PTFTP.PreferencesForm.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Release\he\PTFTP.resources.dll
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\PTFTP.GlobalStrings.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\PTFTP.GlobalStrings.he.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Release\he\PTFTP.resources.dll

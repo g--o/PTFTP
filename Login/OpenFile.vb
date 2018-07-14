@@ -1,4 +1,5 @@
-﻿Imports PTFTP.My.Resources
+﻿Imports System.IO
+Imports PTFTP.My.Resources
 
 Public Class OpenFile
 
@@ -10,6 +11,8 @@ Public Class OpenFile
     Private user As User
     Private isOpen = False
     Private isUpdating = False
+    Private lastRead = DateTime.MinValue
+
 
     Public Shared Function GetPath(name As String, user As User) As String
         Return user.GetCwd() + "/" + name
@@ -46,29 +49,33 @@ Public Class OpenFile
         Return True
     End Function
 
+    Public Sub UpdateFile()
+        ''' Queued way:
+        'Dim opFile = New PendingOpFile(fileInfo.DirectoryName, fileInfo.Name, fileInfo.Length)
+        'Main.queueWindow.EnqueueOperation(New FtpOperation(opFile, Me.remotePath, FTP_OPERATION_TYPE.UPLOAD))
+        'Main.queueWindow.TriggerUpdate()
+
+        ''' Seperate thread:
+        Me.user.UploadInto(Me.localPath, Me.remotePath)
+        Main.queueWindow.Invoke(CType(Sub()
+                                          Main.queueWindow.ListBox1.Items.Insert(0, "<" + GlobalStrings.edited + "> " + Me.remotePath)
+                                      End Sub, MethodInvoker))
+    End Sub
+
     Public Function OnSave(ByVal source As Object, ByVal e As IO.FileSystemEventArgs)
-        If isUpdating Then
+        If e.FullPath <> localPath Or isUpdating Then
             Return False
         End If
 
         isUpdating = True
         If e.ChangeType = IO.WatcherChangeTypes.Changed Then
             Threading.Thread.Sleep(1000)
-            Dim fileInfo = New IO.FileInfo(Me.localPath)
-
-            ''' Queued way:
-            'Dim opFile = New PendingOpFile(fileInfo.DirectoryName, fileInfo.Name, fileInfo.Length)
-            'Main.queueWindow.EnqueueOperation(New FtpOperation(opFile, Me.remotePath, FTP_OPERATION_TYPE.UPLOAD))
-            'Main.queueWindow.TriggerUpdate()
-
-            ''' Seperate thread:
-            Me.user.UploadInto(Me.localPath, Me.remotePath)
-            Main.queueWindow.Invoke(CType(Sub()
-                                              Main.queueWindow.ListBox1.Items.Insert(0, "<" + GlobalStrings.edited + "> " + Me.remotePath)
-                                          End Sub, MethodInvoker))
+            UpdateFile()
         End If
 
         isUpdating = False
+
+        Return True
     End Function
 
 End Class
