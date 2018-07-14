@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Threading
+Imports PTFTP.My.Resources
 
 Public Class QueueWindow
     Public Shared operationQueue As New Queue
@@ -14,6 +15,14 @@ Public Class QueueWindow
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+        Me.Text = GlobalStrings.op_queue
+        Me.CancelButton.Text = GlobalStrings.cancel
+
+        If Login.language.TextInfo.IsRightToLeft() Then
+            Me.ListBox1.RightToLeft = RightToLeft.Yes
+        End If
+
+
         Me.main = mainForm
     End Sub
 
@@ -60,13 +69,13 @@ Public Class QueueWindow
         ElseIf fileOp.type = FTP_OPERATION_TYPE.RENAME Then
             user.RenameFile(fileOp.file.GetURI(), fileOp.destPath)
         Else
-            Console.WriteLine("Bad operation?!")
+            Console.WriteLine(GlobalStrings.err_bad_op)
         End If
 
-        Dim result = "Finished"
+        Dim result = GlobalStrings.finished
 
         If isCancelled Then
-            result = "Cancelled"
+            result = GlobalStrings.cancelled
             isCancelled = False
         End If
 
@@ -99,8 +108,8 @@ Public Class QueueWindow
                             ProgressBar1.Value = e.ProgressPercentage
 
                             Dim percentage = e.ProgressPercentage.ToString() + " %"
-                            Dim speed = "speed: " + GetUnitsString(user.opSpeed) + "/s"
-                            Dim size = "size: " + GetUnitsString(user.opSize)
+                            Dim speed = GlobalStrings.speed + ": " + GetUnitsString(user.opSpeed) + "/s"
+                            Dim size = GlobalStrings.size + ": " + GetUnitsString(user.opSize)
 
                             fileDetailLabel.Text = speed + spacing + size
                         End Sub, MethodInvoker))
@@ -118,7 +127,7 @@ Public Class QueueWindow
                 ' get file operation
                 op = q.Dequeue()
             Else
-                ErrorAndQuit("Negative queue count!")
+                ErrorAndQuit(GlobalStrings.err_bad_queue_count)
             End If
         End SyncLock
 

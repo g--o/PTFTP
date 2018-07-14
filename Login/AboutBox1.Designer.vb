@@ -1,9 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class AboutBox1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -28,7 +29,7 @@ Partial Class AboutBox1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AboutBox1))
         Me.TableLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
@@ -124,7 +125,7 @@ Partial Class AboutBox1
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Size = New System.Drawing.Size(75, 23)
         Me.OKButton.TabIndex = 0
-        Me.OKButton.Text = "&OK"
+        Me.OKButton.Text = Global.PTFTP.My.Resources.GlobalStrings.ok
         '
         'LabelCompanyName
         '
@@ -143,10 +144,10 @@ Partial Class AboutBox1
         Me.siteLink.AutoSize = True
         Me.siteLink.Location = New System.Drawing.Point(133, 100)
         Me.siteLink.Name = "siteLink"
-        Me.siteLink.Size = New System.Drawing.Size(76, 13)
+        Me.siteLink.Size = New System.Drawing.Size(78, 13)
         Me.siteLink.TabIndex = 1
         Me.siteLink.TabStop = True
-        Me.siteLink.Text = "official website"
+        Me.siteLink.Text = "Official website"
         '
         'AboutBox1
         '
@@ -162,7 +163,7 @@ Partial Class AboutBox1
         Me.Padding = New System.Windows.Forms.Padding(9)
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "AboutBox1"
+        Me.Text = "About"
         Me.TableLayoutPanel.ResumeLayout(False)
         Me.TableLayoutPanel.PerformLayout()
         CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()

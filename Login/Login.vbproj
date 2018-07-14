@@ -125,6 +125,16 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="ExternalDropHandler.vb" />
     <Compile Include="FtpOperation.vb" />
+    <Compile Include="Lang\GlobalStrings.he.Designer.vb">
+      <DependentUpon>GlobalStrings.he.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Lang\GlobalStrings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="PendingOpFile.vb" />
     <Compile Include="PercentProgressBar.vb">
       <SubType>Component</SubType>
@@ -184,6 +194,16 @@
       <DependentUpon>AboutBox1.vb</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Lang\GlobalStrings.he.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.he.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lang\GlobalStrings.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="PreferencesForm.resx">
       <DependentUpon>PreferencesForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -238,8 +258,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="file.png" />
-    <Content Include="folder.png" />
+    <Content Include="Assets\file.png" />
+    <Content Include="Assets\folder.png" />
     <Content Include="ptftp.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,6 @@
-﻿Public Class OpenFile
+﻿Imports PTFTP.My.Resources
+
+Public Class OpenFile
 
     Private FSM As IO.FileSystemWatcher
     Private remotePath As String
@@ -62,7 +64,7 @@
             ''' Seperate thread:
             Me.user.UploadInto(Me.localPath, Me.remotePath)
             Main.queueWindow.Invoke(CType(Sub()
-                                              Main.queueWindow.ListBox1.Items.Insert(0, "<Edited> " + Me.remotePath)
+                                              Main.queueWindow.ListBox1.Items.Insert(0, "<" + GlobalStrings.edited + "> " + Me.remotePath)
                                           End Sub, MethodInvoker))
         End If
 

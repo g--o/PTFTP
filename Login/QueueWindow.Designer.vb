@@ -24,10 +24,10 @@ Partial Class QueueWindow
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(QueueWindow))
         Me.ListBox1 = New System.Windows.Forms.ListBox()
-        Me.ProgressBar1 = New PTFTP.PercentProgressBar()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.CancelButton = New System.Windows.Forms.Button()
         Me.fileDetailLabel = New System.Windows.Forms.Label()
+        Me.ProgressBar1 = New PTFTP.PercentProgressBar()
         Me.SuspendLayout()
         '
         'ListBox1
@@ -35,15 +35,8 @@ Partial Class QueueWindow
         Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.Location = New System.Drawing.Point(12, 59)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(582, 95)
+        Me.ListBox1.Size = New System.Drawing.Size(570, 95)
         Me.ListBox1.TabIndex = 0
-        '
-        'ProgressBar1
-        '
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 15)
-        Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(585, 33)
-        Me.ProgressBar1.TabIndex = 1
         '
         'BackgroundWorker1
         '
@@ -51,7 +44,7 @@ Partial Class QueueWindow
         'CancelButton
         '
         Me.CancelButton.Enabled = False
-        Me.CancelButton.Location = New System.Drawing.Point(603, 15)
+        Me.CancelButton.Location = New System.Drawing.Point(588, 15)
         Me.CancelButton.Name = "CancelButton"
         Me.CancelButton.Size = New System.Drawing.Size(69, 33)
         Me.CancelButton.TabIndex = 4
@@ -61,11 +54,18 @@ Partial Class QueueWindow
         'fileDetailLabel
         '
         Me.fileDetailLabel.AutoSize = True
-        Me.fileDetailLabel.Location = New System.Drawing.Point(600, 59)
+        Me.fileDetailLabel.Location = New System.Drawing.Point(588, 59)
         Me.fileDetailLabel.Name = "fileDetailLabel"
         Me.fileDetailLabel.Size = New System.Drawing.Size(86, 13)
         Me.fileDetailLabel.TabIndex = 5
         Me.fileDetailLabel.Text = "speed: 000MB/s"
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 15)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(570, 33)
+        Me.ProgressBar1.TabIndex = 1
         '
         'QueueWindow
         '

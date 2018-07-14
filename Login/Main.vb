@@ -2,12 +2,13 @@ Imports System.Collections.Specialized
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
+Imports PTFTP.My.Resources
 
 Public Class Main
     Private files As Hashtable = New Hashtable
     Private openFiles As Hashtable = New Hashtable
-    Private dirIcon As Bitmap = Bitmap.FromFile("./folder.png")
-    Private fileIcon As Bitmap = Bitmap.FromFile("./file.png")
+    Private dirIcon As Bitmap = Bitmap.FromFile("./Assets/folder.png")
+    Private fileIcon As Bitmap = Bitmap.FromFile("./Assets/file.png")
     Private imgScale As Integer = 15
     Private imgProportion As Integer = 1
 
@@ -25,6 +26,23 @@ Public Class Main
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+
+        Me.FileToolStripMenuItem.Text = GlobalStrings.file
+        Me.ExitToolStripMenuItem.Text = GlobalStrings.exitText
+
+        Me.EditToolStripMenuItem.Text = GlobalStrings.edit
+        Me.PreferencesToolStripMenuItem.Text = GlobalStrings.preferences
+
+        Me.ViewToolStripMenuItem.Text = GlobalStrings.view
+        Me.IconsToolStripMenuItem.Text = GlobalStrings.icons
+        Me.ListToolStripMenuItem.Text = GlobalStrings.list
+
+        Me.HelpToolStripMenuItem.Text = GlobalStrings.help
+        Me.SiteToolStripMenuItem.Text = GlobalStrings.website
+        Me.AboutToolStripMenuItem.Text = GlobalStrings.about
+
+        Me.RenameToolStripMenuItem.Text = GlobalStrings.renameAction
+        Me.DeleteToolStripMenuItem.Text = GlobalStrings.delete
 
         If System.IO.Directory.Exists("tmp") Then
             System.IO.Directory.Delete("tmp", True)

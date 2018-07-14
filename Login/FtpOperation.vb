@@ -1,4 +1,6 @@
-﻿Public Enum FTP_OPERATION_TYPE
+﻿Imports PTFTP.My.Resources
+
+Public Enum FTP_OPERATION_TYPE
     UPLOAD
     DOWNLOAD
     MOVE
@@ -21,17 +23,17 @@ Public Class FtpOperation
         Dim extras = ""
 
         If type = FTP_OPERATION_TYPE.DOWNLOAD Then
-            s = "Download"
+            s = GlobalStrings.download
         ElseIf type = FTP_OPERATION_TYPE.UPLOAD Then
-            s = "Upload"
+            s = GlobalStrings.upload
         ElseIf type = FTP_OPERATION_TYPE.MOVE Then
-            s = "Move"
+            s = GlobalStrings.move
             extras += " -> " + destPath
         ElseIf type = FTP_OPERATION_TYPE.RENAME Then
-            s = "Rename"
+            s = GlobalStrings.rename
             extras += " -> " + destPath
         Else
-            s = "Invalid Operation"
+            s = GlobalStrings.invalid_op
         End If
 
         s += ": " + file.name

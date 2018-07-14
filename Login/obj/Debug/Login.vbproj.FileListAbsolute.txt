@@ -100,3 +100,7 @@ D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PT
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\App.config
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\Login.vbprojResolveAssemblyReference.cache
 D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.PreferencesForm.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.GlobalStrings.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\bin\Debug\he\PTFTP.resources.dll
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\PTFTP.GlobalStrings.he.resources
+D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\PTFTP\repo\Login\obj\Debug\he\PTFTP.resources.dll

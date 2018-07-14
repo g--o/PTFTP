@@ -29,6 +29,7 @@ Partial Class PreferencesForm
         Me.LimitTextBox = New System.Windows.Forms.TextBox()
         Me.ApplyButton = New System.Windows.Forms.Button()
         Me.CancelButton = New System.Windows.Forms.Button()
+        Me.changesLabel = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'LangLabel
@@ -44,7 +45,6 @@ Partial Class PreferencesForm
         '
         Me.LangComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.LangComboBox.FormattingEnabled = True
-        Me.LangComboBox.Items.AddRange(New Object() {"English"})
         Me.LangComboBox.Location = New System.Drawing.Point(43, 52)
         Me.LangComboBox.Name = "LangComboBox"
         Me.LangComboBox.Size = New System.Drawing.Size(121, 21)
@@ -87,12 +87,22 @@ Partial Class PreferencesForm
         Me.CancelButton.Text = "Cancel"
         Me.CancelButton.UseVisualStyleBackColor = True
         '
+        'changesLabel
+        '
+        Me.changesLabel.AutoSize = True
+        Me.changesLabel.Location = New System.Drawing.Point(170, 55)
+        Me.changesLabel.Name = "changesLabel"
+        Me.changesLabel.Size = New System.Drawing.Size(176, 13)
+        Me.changesLabel.TabIndex = 6
+        Me.changesLabel.Text = "Changes will take effect after restart"
+        '
         'PreferencesForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(381, 214)
         Me.ControlBox = False
+        Me.Controls.Add(Me.changesLabel)
         Me.Controls.Add(Me.CancelButton)
         Me.Controls.Add(Me.ApplyButton)
         Me.Controls.Add(Me.LimitTextBox)
@@ -113,4 +123,5 @@ Partial Class PreferencesForm
     Friend WithEvents LimitTextBox As TextBox
     Friend WithEvents ApplyButton As Button
     Friend WithEvents CancelButton As Button
+    Friend WithEvents changesLabel As Label
 End Class

@@ -44,18 +44,30 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PTFTP.exe" size="2310144">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PTFTP.exe" size="2319360">
       <assemblyIdentity name="PTFTP" version="1.3.0.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jwNA0n2+22gejLII3Fy6UTbV7JW79RtvXa1RYnsRRws=</dsig:DigestValue>
+        <dsig:DigestValue>0TVKFWjnQw8w8LoLM4hn3ytBGeHVszgYm85j/iq2d8I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="file.png" size="3833">
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="he\PTFTP.resources.dll" size="5632">
+      <assemblyIdentity name="PTFTP.resources" version="1.3.0.1" language="he" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>zxV3QTgDAuye9M4yY15IcVWR+1sMEIagZIHtvoBgmpo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Assets\file.png" size="3833">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -64,7 +76,7 @@
       <dsig:DigestValue>LulXw150A7UFtPWpY2ixk9yBBTbDegPMuC1vpewD0ao=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="folder.png" size="7433">
+  <file name="Assets\folder.png" size="7433">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />

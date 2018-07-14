@@ -1,11 +1,73 @@
-﻿Imports System.Net.FtpWebRequest
+﻿Imports System.Globalization
+Imports System.Threading
+Imports PTFTP.My.Resources
 
 Public Class Login
 
     Public user As User
-    Public language = "English"
-    Private profilesPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\PTFTP\"
+    Public langList As New List(Of Globalization.CultureInfo)
+    Public language As CultureInfo = Application.CurrentCulture
+
+    Private userPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\PTFTP\"
+    Private profilesPath = userPath
+    Private settingsPath = userPath + "\ptftp.settings"
     Private extension = ".ptftp"
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        UpdateFormLang()
+
+        ' Add supported langs
+        langList.Add(CultureInfo.GetCultureInfo("en"))
+        langList.Add(CultureInfo.GetCultureInfo("he"))
+
+        ' Load settings
+        LoadSettings()
+
+    End Sub
+
+    Public Sub SetLanguage(culInfo As CultureInfo)
+        If langList.Contains(culInfo) Then
+            Me.language = culInfo
+
+            CultureInfo.DefaultThreadCurrentCulture = culInfo
+            CultureInfo.DefaultThreadCurrentUICulture = culInfo
+            Thread.CurrentThread.CurrentCulture = culInfo
+            Thread.CurrentThread.CurrentUICulture = culInfo
+            UpdateFormLang()
+        End If
+    End Sub
+
+    Public Sub SaveSettings()
+        My.Computer.FileSystem.WriteAllText(settingsPath, Me.language.TwoLetterISOLanguageName, False)
+    End Sub
+
+    Public Sub LoadSettings()
+        If My.Computer.FileSystem.FileExists(settingsPath) Then
+            Dim settingsString = My.Computer.FileSystem.ReadAllText(settingsPath)
+
+            Dim langStr = settingsString
+            Dim lang = New CultureInfo(langStr)
+            SetLanguage(lang)
+        Else
+            SaveSettings()
+        End If
+    End Sub
+
+    Private Sub UpdateFormLang()
+        Me.Text = "PTFTP " + GlobalStrings.login
+        Me.HostLabel.Text = GlobalStrings.host
+        Me.PortLabel.Text = GlobalStrings.port
+        Me.UsrLabel.Text = GlobalStrings.username
+        Me.PassLabel.Text = GlobalStrings.password
+        Me.ConnectButton.Text = GlobalStrings.connect
+        Me.SaveButton.Text = GlobalStrings.save
+        Me.ExitButton.Text = GlobalStrings.exitText
+    End Sub
 
     Private Sub ListBox1_DoubleClick(sender As ListBox, e As EventArgs) Handles ListBox1.DoubleClick
         If ListBox1.SelectedItems.Count > 0 Then
@@ -14,7 +76,7 @@ Public Class Login
     End Sub
 
     'exit
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         Application.Exit()
     End Sub
 
@@ -27,7 +89,7 @@ Public Class Login
             user = New User(TextBox1.Text, TextBox2.Text, TextBox3.Text, NumericUpDown1.Value)
             res = user.Auth()
         Catch ex As Exception
-            MessageBox.Show("Failed to connect" + Environment.NewLine + ex.Message) ' login error
+            MessageBox.Show(GlobalStrings.err_cant_connect + Environment.NewLine + ex.Message) ' login error
             Return
         End Try
 
@@ -41,12 +103,12 @@ Public Class Login
     End Sub
 
     'login button
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub ConnectButton_Click(sender As Object, e As EventArgs) Handles ConnectButton.Click
         Login()
     End Sub
 
     'save
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
         Try
             If (Not TextBox1.Text.Equals("")) Then
                 Dim user = New User(TextBox1.Text, TextBox2.Text, TextBox3.Text, NumericUpDown1.Value)
@@ -62,7 +124,7 @@ Public Class Login
                 ListBox1.Items.Add(user.GetPrettyHost())
             End If
         Catch ex As Exception
-            MessageBox.Show("Couldn't save!" + Environment.NewLine + ex.Message)
+            MessageBox.Show(GlobalStrings.err_cant_save + Environment.NewLine + ex.Message)
         End Try
     End Sub
 
@@ -89,7 +151,7 @@ Public Class Login
             NumericUpDown1.Value = user.port
 
         Catch ex As Exception
-            MessageBox.Show("Couldn't load!" + Environment.NewLine + ex.Message)
+            MessageBox.Show(GlobalStrings.err_cant_load + Environment.NewLine + ex.Message)
             Return
         End Try
     End Sub
@@ -152,6 +214,9 @@ Public Class Login
             My.Computer.FileSystem.CreateDirectory(profilesPath)
         End If
 
+        'load translation
+
+
         'list all profile files
         Dim files = My.Computer.FileSystem.GetFiles(profilesPath)
 
@@ -179,7 +244,7 @@ Public Class Login
             My.Computer.FileSystem.DeleteFile(profilesPath + ListBox1.SelectedItem + extension)
             ListBox1.Items.RemoveAt(ListBox1.SelectedIndex)
         Catch
-            MessageBox.Show("Failed to delete save.")
+            MessageBox.Show(GlobalStrings.err_cant_delete)
         End Try
     End Sub
 End Class
