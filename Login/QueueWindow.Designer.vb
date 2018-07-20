@@ -35,7 +35,7 @@ Partial Class QueueWindow
         Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.Location = New System.Drawing.Point(12, 59)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(570, 95)
+        Me.ListBox1.Size = New System.Drawing.Size(524, 95)
         Me.ListBox1.TabIndex = 0
         '
         'BackgroundWorker1
@@ -44,9 +44,9 @@ Partial Class QueueWindow
         'CancelButton
         '
         Me.CancelButton.Enabled = False
-        Me.CancelButton.Location = New System.Drawing.Point(588, 15)
+        Me.CancelButton.Location = New System.Drawing.Point(542, 15)
         Me.CancelButton.Name = "CancelButton"
-        Me.CancelButton.Size = New System.Drawing.Size(69, 33)
+        Me.CancelButton.Size = New System.Drawing.Size(130, 33)
         Me.CancelButton.TabIndex = 4
         Me.CancelButton.Text = "Cancel"
         Me.CancelButton.UseVisualStyleBackColor = True
@@ -54,7 +54,7 @@ Partial Class QueueWindow
         'fileDetailLabel
         '
         Me.fileDetailLabel.AutoSize = True
-        Me.fileDetailLabel.Location = New System.Drawing.Point(588, 59)
+        Me.fileDetailLabel.Location = New System.Drawing.Point(542, 59)
         Me.fileDetailLabel.Name = "fileDetailLabel"
         Me.fileDetailLabel.Size = New System.Drawing.Size(86, 13)
         Me.fileDetailLabel.TabIndex = 5
@@ -64,7 +64,7 @@ Partial Class QueueWindow
         '
         Me.ProgressBar1.Location = New System.Drawing.Point(12, 15)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(570, 33)
+        Me.ProgressBar1.Size = New System.Drawing.Size(524, 33)
         Me.ProgressBar1.TabIndex = 1
         '
         'QueueWindow

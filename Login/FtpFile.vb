@@ -18,7 +18,7 @@
 
             'start parsing
             Me.Flags = strProcess.Substring(0, 9)
-            Me.isDirectory = strProcess.Substring(0, 1) = "d"
+            Me.isDirectory = (strProcess.Substring(0, 1) = "d")
 
             'skip first part
             strProcess = strProcess.Substring(11).Trim
@@ -44,6 +44,39 @@
             End If
         End If
     End Sub
+
+    Public Shared Function ParseStringArray(arr() As String)
+        Dim outputList As New List(Of FtpFile)
+
+        For Each file As String In arr 'Seperate to a list
+            ' skip "."
+            If Not arr.First.Equals(file) Then
+                file = file.Substring(1, file.Length - 1)
+            End If
+
+            Dim parsedFile
+
+            If file.Equals("") Then
+                ' include ".."
+                parsedFile = New FtpFile("d--------- 1 - - 0 Jan 01 00:00 ..")
+            Else
+                parsedFile = New FtpFile(file)
+
+                ' update image index
+                Dim imageIndex = 0
+                If Not parsedFile.isDirectory Then
+                    imageIndex = 1
+                End If
+
+                parsedFile.imageIndex = imageIndex
+            End If
+
+            ' Add file
+            outputList.Add(parsedFile)
+        Next
+
+        Return outputList
+    End Function
 
 End Class
 

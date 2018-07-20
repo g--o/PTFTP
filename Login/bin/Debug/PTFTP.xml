@@ -32,6 +32,11 @@ PTFTP
   Looks up a localized string similar to Apply.
 </summary>
 </member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.ask_should_delete">
+<summary>
+  Looks up a localized string similar to Are you sure you want to delete?.
+</summary>
+</member>
 <member name="P:PTFTP.My.Resources.GlobalStrings.cancel">
 <summary>
   Looks up a localized string similar to Cancel.
@@ -110,6 +115,11 @@ PTFTP
 <member name="P:PTFTP.My.Resources.GlobalStrings.err_cant_save">
 <summary>
   Looks up a localized string similar to Couldn&apos;t save!.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.err_file_in_use">
+<summary>
+  Looks up a localized string similar to Sorry, file is used right now. Please try again in a few seconds..
 </summary>
 </member>
 <member name="P:PTFTP.My.Resources.GlobalStrings.exitText">

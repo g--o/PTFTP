@@ -258,4 +258,13 @@
   <data name="err_file_in_use" xml:space="preserve">
     <value>מצטערים, הקובץ נמצא בשימוש כרגע. נסה שוב מאוחר יותר.</value>
   </data>
+  <data name="ask_should_delete" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק?</value>
+  </data>
+  <data name="refresh" xml:space="preserve">
+    <value>רענן</value>
+  </data>
+  <data name="new_folder" xml:space="preserve">
+    <value>תיקייה חדשה</value>
+  </data>
 </root>

@@ -14,7 +14,7 @@
     <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="PTFTP.exe.manifest" size="6622">
+    <dependentAssembly dependencyType="install" codebase="Application Files\PTFTP_1_4_0_0\PTFTP.exe.manifest" size="6622">
       <assemblyIdentity name="PTFTP.exe" version="1.4.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>

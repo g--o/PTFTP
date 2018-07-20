@@ -39,8 +39,14 @@ Partial Class Main
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.RenameToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.RefreshToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.NewFolderToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.CwdToolStripLabel = New System.Windows.Forms.ToolStripLabel()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -75,7 +81,7 @@ Partial Class Main
         'PreferencesToolStripMenuItem
         '
         Me.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem"
-        Me.PreferencesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PreferencesToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.PreferencesToolStripMenuItem.Text = "Preferences"
         '
         'ViewToolStripMenuItem
@@ -153,6 +159,45 @@ Partial Class Main
         Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.DeleteToolStripMenuItem.Text = "Delete"
         '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RefreshToolStripButton, Me.NewFolderToolStripButton, Me.ToolStripSeparator1, Me.CwdToolStripLabel})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 436)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(684, 25)
+        Me.ToolStrip1.TabIndex = 2
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'RefreshToolStripButton
+        '
+        Me.RefreshToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.RefreshToolStripButton.Image = CType(resources.GetObject("RefreshToolStripButton.Image"), System.Drawing.Image)
+        Me.RefreshToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.RefreshToolStripButton.Name = "RefreshToolStripButton"
+        Me.RefreshToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.RefreshToolStripButton.Text = "Refresh"
+        '
+        'NewFolderToolStripButton
+        '
+        Me.NewFolderToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.NewFolderToolStripButton.Image = CType(resources.GetObject("NewFolderToolStripButton.Image"), System.Drawing.Image)
+        Me.NewFolderToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.NewFolderToolStripButton.Name = "NewFolderToolStripButton"
+        Me.NewFolderToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.NewFolderToolStripButton.Text = "New Folder"
+        '
+        'CwdToolStripLabel
+        '
+        Me.CwdToolStripLabel.Name = "CwdToolStripLabel"
+        Me.CwdToolStripLabel.Size = New System.Drawing.Size(12, 22)
+        Me.CwdToolStripLabel.Text = "/"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -160,6 +205,7 @@ Partial Class Main
         Me.AutoSize = True
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(684, 461)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -169,6 +215,8 @@ Partial Class Main
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ContextMenuStrip1.ResumeLayout(False)
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -189,4 +237,9 @@ Partial Class Main
     Friend WithEvents IconsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ListToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SiteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents NewFolderToolStripButton As ToolStripButton
+    Friend WithEvents RefreshToolStripButton As ToolStripButton
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents CwdToolStripLabel As ToolStripLabel
 End Class

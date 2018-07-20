@@ -83,6 +83,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Are you sure you want to delete?.
+        '''</summary>
+        Friend Shared ReadOnly Property ask_should_delete() As String
+            Get
+                Return ResourceManager.GetString("ask_should_delete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Cancel.
         '''</summary>
         Friend Shared ReadOnly Property cancel() As String
@@ -335,6 +344,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to New folder.
+        '''</summary>
+        Friend Shared ReadOnly Property new_folder() As String
+            Get
+                Return ResourceManager.GetString("new_folder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to OK.
         '''</summary>
         Friend Shared ReadOnly Property ok() As String
@@ -376,6 +394,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property preferences() As String
             Get
                 Return ResourceManager.GetString("preferences", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Refresh.
+        '''</summary>
+        Friend Shared ReadOnly Property refresh() As String
+            Get
+                Return ResourceManager.GetString("refresh", resourceCulture)
             End Get
         End Property
         

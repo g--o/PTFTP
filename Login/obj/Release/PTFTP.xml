@@ -32,6 +32,11 @@ PTFTP
   Looks up a localized string similar to Apply.
 </summary>
 </member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.ask_should_delete">
+<summary>
+  Looks up a localized string similar to Are you sure you want to delete?.
+</summary>
+</member>
 <member name="P:PTFTP.My.Resources.GlobalStrings.cancel">
 <summary>
   Looks up a localized string similar to Cancel.
@@ -172,6 +177,11 @@ PTFTP
   Looks up a localized string similar to Move.
 </summary>
 </member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.new_folder">
+<summary>
+  Looks up a localized string similar to New folder.
+</summary>
+</member>
 <member name="P:PTFTP.My.Resources.GlobalStrings.ok">
 <summary>
   Looks up a localized string similar to OK.
@@ -195,6 +205,11 @@ PTFTP
 <member name="P:PTFTP.My.Resources.GlobalStrings.preferences">
 <summary>
   Looks up a localized string similar to Preferences.
+</summary>
+</member>
+<member name="P:PTFTP.My.Resources.GlobalStrings.refresh">
+<summary>
+  Looks up a localized string similar to Refresh.
 </summary>
 </member>
 <member name="P:PTFTP.My.Resources.GlobalStrings.rename">

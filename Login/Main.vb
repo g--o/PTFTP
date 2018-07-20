@@ -44,6 +44,9 @@ Public Class Main
         Me.RenameToolStripMenuItem.Text = GlobalStrings.renameAction
         Me.DeleteToolStripMenuItem.Text = GlobalStrings.delete
 
+        Me.RefreshToolStripButton.Text = GlobalStrings.refresh
+        Me.NewFolderToolStripButton.Text = GlobalStrings.new_folder
+
         If System.IO.Directory.Exists("tmp") Then
             System.IO.Directory.Delete("tmp", True)
         End If
@@ -104,8 +107,31 @@ Public Class Main
     End Sub
 
     Private Sub listViewDelete()
+
+        'build message with selected file list
+        Dim separator = "- "
+        Dim msg = GlobalStrings.ask_should_delete
         For Each item As ListViewItem In ListView1.SelectedItems
-            Dim resp = Login.user.DeleteFile(user.GetCwd() + "/" + item.Text)
+            msg += Environment.NewLine + separator + item.Text
+        Next
+
+        'ask to confirm deletion
+        Dim confirm As Integer = MessageBox.Show(msg, GlobalStrings.delete, MessageBoxButtons.YesNo)
+        If confirm = DialogResult.No Then
+            Exit Sub
+        End If
+
+        'confirmed: delete
+        For Each item As ListViewItem In ListView1.SelectedItems
+            Dim resp = ""
+            Dim file As FtpFile = files(item.Text)
+
+            If (file.isDirectory) Then
+                resp = Login.user.DeleteDirectory(user.GetCwd() + "/" + item.Text)
+            Else
+                resp = Login.user.DeleteFile(user.GetCwd() + "/" + item.Text)
+            End If
+
             RequestEnded(resp)
         Next
     End Sub
@@ -113,7 +139,7 @@ Public Class Main
     Private Sub Reload()
         Dim filesStrList As String
         files.Clear()
-        filesStrList = Login.user.SetDirectory(".")
+        filesStrList = Login.user.GetDirectory(user.GetCwd())
 
         Dim il = New ImageList()
         il.Images.Add(dirIcon)
@@ -127,33 +153,14 @@ Public Class Main
         ListView1.LargeImageList = il
         ListView1.Items.Clear()
 
-        Dim arr = filesStrList.Split(Environment.NewLine)
-
-        For Each file As String In arr 'Seperate to a list
-            ' skip "."
-            If Not arr.First.Equals(file) Then
-                file = file.Substring(1, file.Length - 1)
-            End If
-
-            If file.Equals("") Then
-                ' include ".."
-                ListView1.Items.Add("..", "..", 0)
-            Else
-                Dim parsedFile = New FtpFile(file)
-
-                ' update image index
-                Dim imageIndex = 0
-                If Not parsedFile.isDirectory Then
-                    imageIndex = 1
-                End If
-
-                parsedFile.imageIndex = imageIndex
-
-                ' Add file
-                files(parsedFile.Name) = parsedFile
-                ListView1.Items.Add(parsedFile.Name, parsedFile.Name, imageIndex)
-            End If
+        Dim filesArr = FtpFile.ParseStringArray(filesStrList.Split(Environment.NewLine))
+        For Each parsedFile As FtpFile In filesArr
+            files(parsedFile.Name) = parsedFile
+            ListView1.Items.Add(parsedFile.Name, parsedFile.Name, parsedFile.imageIndex)
         Next
+
+        CwdToolStripLabel.Text = user.cwd
+
     End Sub
 
     Public Sub TriggerUpdate()
@@ -177,6 +184,10 @@ Public Class Main
 
     Private Sub ListView1_ItemActivate(sender As ListView, e As EventArgs) _
      Handles ListView1.ItemActivate
+
+        If sender.SelectedItems.Count = 0 Then
+            Exit Sub
+        End If
 
         Dim item = sender.SelectedItems.Item(0)
         Dim name = item.Text
@@ -328,10 +339,16 @@ Public Class Main
         For Each file In files
             Dim fileInfo = New FileInfo(file)
 
-            If String.IsNullOrWhiteSpace(fileInfo.Extension) Then Exit Sub
             Dim resp = ""
             If sender Is ListView1 Then
-                Dim opFile = New PendingOpFile(fileInfo.DirectoryName, fileInfo.Name, fileInfo.Length)
+                Dim isDir = Directory.Exists(fileInfo.FullName)
+                Dim length = 0
+
+                If Not isDir Then
+                    length = fileInfo.Length
+                End If
+
+                Dim opFile = New PendingOpFile(fileInfo.DirectoryName, fileInfo.Name, isDir, length)
                 queueWindow.EnqueueOperation(New FtpOperation(opFile, user.GetCwd() + "/" + fileInfo.Name, FTP_OPERATION_TYPE.UPLOAD))
             End If
         Next
@@ -368,4 +385,14 @@ Public Class Main
         Dim preferences = New PreferencesForm()
         preferences.Show()
     End Sub
+
+    Private Sub RefreshToolStripButton_Click(sender As Object, e As EventArgs) Handles RefreshToolStripButton.Click
+        Reload()
+    End Sub
+
+    Private Sub NewFolderToolStripButton_Click(sender As Object, e As EventArgs) Handles NewFolderToolStripButton.Click
+        user.CreateDirectory(user.GetNewDirUri(user.GetCwd()))
+        Reload()
+    End Sub
+
 End Class

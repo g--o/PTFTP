@@ -60,10 +60,10 @@ Public Class QueueWindow
                         End Sub, MethodInvoker))
 
         If fileOp.type = FTP_OPERATION_TYPE.DOWNLOAD Then
-            user.DownloadFile(fileOp.file.GetURI(), fileOp.destPath, fileOp.file.size, Me.opProgress)
+            user.Download(fileOp.file.GetURI(), fileOp.destPath, fileOp.file.isDirectory, fileOp.file.size, Me.opProgress)
         ElseIf fileOp.type = FTP_OPERATION_TYPE.UPLOAD Then
             Dim windowsURI = fileOp.file.path + "\" + fileOp.file.name
-            user.UploadFile(windowsURI, fileOp.destPath, fileOp.file.size, Me.opProgress)
+            user.Upload(windowsURI, fileOp.destPath, fileOp.file.isDirectory, fileOp.file.size, Me.opProgress)
         ElseIf fileOp.type = FTP_OPERATION_TYPE.MOVE Then
             user.MoveFile(fileOp.file.GetURI(), fileOp.destPath)
         ElseIf fileOp.type = FTP_OPERATION_TYPE.RENAME Then
@@ -110,8 +110,9 @@ Public Class QueueWindow
                             Dim percentage = e.ProgressPercentage.ToString() + " %"
                             Dim speed = GlobalStrings.speed + ": " + GetUnitsString(user.opSpeed) + "/s"
                             Dim size = GlobalStrings.size + ": " + GetUnitsString(user.opSize)
+                            Dim fileName = user.opFileName
 
-                            fileDetailLabel.Text = speed + spacing + size
+                            fileDetailLabel.Text = speed + spacing + size + spacing + fileName
                         End Sub, MethodInvoker))
     End Sub
 
@@ -157,5 +158,9 @@ Public Class QueueWindow
     Private Sub CancelButton_Click(sender As Object, e As EventArgs) Handles CancelButton.Click
         CancelButton.Enabled = False
         isCancelled = True
+    End Sub
+
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs)
+
     End Sub
 End Class
