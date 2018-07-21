@@ -29,15 +29,10 @@ Public Class OpenFile
 
     Public Function Open()
         If isOpen Then
-            Process.Start(Me.localPath)
-            Return False
+            '@TODO: warn about override!
         End If
 
         isOpen = True
-
-        If IO.File.Exists(localPath) Then
-            Return False
-        End If
 
         Me.user.DownloadFile(Me.remotePath, localPath)
         FSM = New IO.FileSystemWatcher("tmp", Me.localFileName)
