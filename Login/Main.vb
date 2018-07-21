@@ -7,8 +7,6 @@ Imports PTFTP.My.Resources
 Public Class Main
     Private files As Hashtable = New Hashtable
     Private openFiles As Hashtable = New Hashtable
-    Private dirIcon As Bitmap = Bitmap.FromFile("./Assets/folder.png")
-    Private fileIcon As Bitmap = Bitmap.FromFile("./Assets/file.png")
     Private imgScale As Integer = 15
     Private imgProportion As Integer = 1
 
@@ -17,6 +15,7 @@ Public Class Main
     Private externalDropHandler As ExternalDropHandler
     Private user As User = Login.user
 
+    Public Shared sizedImageList As New ImageList()
     Public Shared queueWindow As QueueWindow
 
     Public Sub New(res As String)
@@ -137,20 +136,9 @@ Public Class Main
     End Sub
 
     Private Sub Reload()
-        Dim filesStrList As String
         files.Clear()
-        filesStrList = Login.user.GetDirectory(user.GetCwd())
+        Dim filesStrList As String = Login.user.GetDirectory(user.GetCwd())
 
-        Dim il = New ImageList()
-        il.Images.Add(dirIcon)
-        il.Images.Add(fileIcon)
-
-        If (ListView1.FindForm IsNot Nothing) Then
-            Dim width = Math.Sqrt(Math.Pow(ListView1.FindForm.Size().Height(), 2) + Math.Pow(ListView1.FindForm.Size().Width(), 2)) / imgScale
-            il.ImageSize = New Size(width, imgProportion * width)
-        End If
-
-        ListView1.LargeImageList = il
         ListView1.Items.Clear()
 
         Dim filesArr = FtpFile.ParseStringArray(filesStrList.Split(Environment.NewLine))
@@ -192,7 +180,9 @@ Public Class Main
         Dim item = sender.SelectedItems.Item(0)
         Dim name = item.Text
 
-        If item.ImageIndex = 0 Then
+        Dim remoteFile As FtpFile = files(name)
+
+        If remoteFile.isDirectory Then
             ' directory
             Login.user.SetDirectory(name)
             RequestEnded("")
@@ -213,19 +203,40 @@ Public Class Main
         ContextMenuStrip1.Enabled = False
     End Sub
 
+    Public Shared Sub updateSizedImageList()
+        sizedImageList.Images.Clear()
+        For Each key In IconFinder.imageList.Images.Keys()
+            sizedImageList.Images.Add(key, IconFinder.imageList.Images.Item(key))
+        Next
+    End Sub
+
+    Private Sub setSizedImageList()
+        sizedImageList.ColorDepth = ColorDepth.Depth32Bit
+
+        If (ListView1.FindForm IsNot Nothing) Then
+            Dim width = Math.Sqrt(Math.Pow(ListView1.FindForm.Size().Height(), 2) + Math.Pow(ListView1.FindForm.Size().Width(), 2)) / imgScale
+            sizedImageList.ImageSize = New Size(width, imgProportion * width)
+        End If
+
+        updateSizedImageList()
+        ListView1.LargeImageList = sizedImageList
+    End Sub
+
     'Form loading
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ContextMenuStrip1.Enabled = False
         System.IO.Directory.CreateDirectory("tmp")
+        ContextMenuStrip1.Enabled = False
+        IconFinder.setupImageList()
+        setSizedImageList()
         Reload()
+
         queueWindow = New QueueWindow(Me)
         queueWindow.Show()
         queueWindow.Location = New Point(Me.Location.X, Me.Location.Y + Me.Height)
     End Sub
 
-    Private Sub Main_ResizeEnd(sender As Object, e As EventArgs) _
-     Handles MyBase.ResizeEnd
-        Reload()
+    Private Sub Main_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
+        setSizedImageList()
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -257,6 +268,7 @@ Public Class Main
     Private Sub ListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListToolStripMenuItem.Click
         IconsToolStripMenuItem.Checked = False
         ListView1.View = View.List
+        '@TODO: set small image list
     End Sub
 
     Private Sub ListView_BeforeLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.BeforeLabelEdit

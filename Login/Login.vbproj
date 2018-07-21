@@ -32,7 +32,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.4.0.0</ApplicationVersion>
+    <ApplicationVersion>1.4.1.0</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -125,6 +125,7 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="ExternalDropHandler.vb" />
     <Compile Include="FtpOperation.vb" />
+    <Compile Include="IconFinder.vb" />
     <Compile Include="Lang\GlobalStrings.he.Designer.vb">
       <DependentUpon>GlobalStrings.he.resx</DependentUpon>
       <AutoGen>True</AutoGen>
