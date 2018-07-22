@@ -288,5 +288,12 @@ PTFTP
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="M:PTFTP.IconFinder.SHGetImageList(System.Int32,System.Guid@,PTFTP.IconFinder.IImageList@)">
+
+ SHGetImageList is not exported correctly in XP.  See KB316931
+ http://support.microsoft.com/default.aspx?scid=kb;EN-US;Q316931
+ Apparently (and hopefully) ordinal 727 isn't going to change.
+
+</member>
 </members>
 </doc>

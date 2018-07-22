@@ -203,10 +203,14 @@ Public Class Main
         ContextMenuStrip1.Enabled = False
     End Sub
 
+    Public Shared Sub updateSingleImage(key As String)
+        sizedImageList.Images.Add(key, IconFinder.imageList.Images.Item(key))
+    End Sub
+
     Public Shared Sub updateSizedImageList()
         sizedImageList.Images.Clear()
         For Each key In IconFinder.imageList.Images.Keys()
-            sizedImageList.Images.Add(key, IconFinder.imageList.Images.Item(key))
+            updateSingleImage(key)
         Next
     End Sub
 

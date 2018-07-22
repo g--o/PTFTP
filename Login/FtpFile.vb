@@ -9,7 +9,9 @@
     Public Name As String
     Public imageIndex = 0
 
-    Public Sub New(ByVal strRecord As String, Optional type As String = "unix")
+    Private Shared hashedFiles As New Hashtable
+
+    Public Sub New(strRecord As String, Optional type As String = "unix")
         If type = "unix" Then
             Dim strProcess As String = strRecord.Trim
             Dim intIndex As Integer = 0
@@ -60,7 +62,7 @@
                 If (Not IconFinder.imageList.Images.ContainsKey(ext)) Then
                     Dim image = IconFinder.GetFileIcon(ext)
                     IconFinder.imageList.Images.Add(ext, image)
-                    Main.updateSizedImageList()
+                    Main.updateSingleImage(ext)
                 End If
             End If
 
@@ -71,6 +73,16 @@
         End If
 
     End Sub
+
+    Public Shared Function GetOptimized(strRecord As String, Optional type As String = "unix") As FtpFile
+        If hashedFiles(strRecord) IsNot Nothing Then
+            Return hashedFiles(strRecord)
+        End If
+
+        Dim file = New FtpFile(strRecord, type)
+        hashedFiles.Add(strRecord, file)
+        Return file
+    End Function
 
     Public Shared Function ParseStringArray(arr() As String)
         Dim outputList As New List(Of FtpFile)
@@ -84,9 +96,9 @@
             Dim parsedFile
             If file.Equals("") Then
                 ' include ".."
-                parsedFile = New FtpFile("d--------- 1 - - 0 Jan 01 00:00 ..")
+                parsedFile = FtpFile.GetOptimized("d--------- 1 - - 0 Jan 01 00:00 ..")
             Else
-                parsedFile = New FtpFile(file)
+                parsedFile = FtpFile.GetOptimized(file)
             End If
 
             ' Add file

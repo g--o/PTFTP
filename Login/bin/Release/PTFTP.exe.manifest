@@ -44,14 +44,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PTFTP.exe" size="2327552">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PTFTP.exe" size="2329600">
       <assemblyIdentity name="PTFTP" version="1.4.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ORQjiMLAgJn3Pfiu4Z+la6Zsbo873nlTET33Vl4mgrM=</dsig:DigestValue>
+        <dsig:DigestValue>fcKJ1g9msrOr8K3cg4LmecT5BTe5MMRLHIc26Wucxr0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -63,7 +63,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>U5D6WdP6THwhBl+kmPzs4Psm87LU9NRkoAcs0MxOv1c=</dsig:DigestValue>
+        <dsig:DigestValue>MhbT9bUI+xNeYDw3nfTjBzur7PzYpRysTdWVaqwnyXM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

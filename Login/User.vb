@@ -159,20 +159,22 @@ Public Class User
         Dim dirInfo = New DirectoryInfo(dirPath)
         Dim fileList = dirInfo.GetFiles()
 
-        ' Upload each file/dir recursively
+        ' Upload each file
         For Each file As FileInfo In fileList
-            If file.Name = ".." Then
+            opFileName = file.Name
+            Me.UploadFile(file.FullName, destUri + "/" + file.Name, file.Length, callback)
+            opFileName = ""
+        Next
+
+        ' Upload each dir (recursively)
+        Dim dirList = dirInfo.GetDirectories()
+        For Each dir As DirectoryInfo In dirList
+            If dir.Name = ".." Then
                 Continue For
             End If
-
-            If Directory.Exists(file.FullName) Then
-                Me.UploadDirectory(dirPath + "\" + file.Name, destUri + "/" + file.Name, file.Length, callback)
-            Else
-                opFileName = file.Name
-                Me.UploadFile(dirPath + "\" + file.Name, destUri + "/" + file.Name, file.Length, callback)
-                opFileName = ""
-            End If
+            Me.UploadDirectory(dir.FullName, destUri + "/" + dir.Name, 0, callback)
         Next
+
     End Function
 
     'Upload to current dir

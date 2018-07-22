@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="PTFTP.exe" version="1.4.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="PTFTP.exe" version="1.4.1.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="ptftp.ico" asmv2:publisher="g_o" asmv2:product="PTFTP" asmv2:supportUrl="http://ptftp.net/" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="PTFTP" version="1.3.0.1" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="PTFTP" version="1.4.1.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="PTFTP.exe" parameters="" />
   </entryPoint>
   <co.v1:useManifestForTrust xmlns="urn:schemas-microsoft-com:asm.v1" />
@@ -44,26 +44,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PTFTP.exe" size="2329088">
-      <assemblyIdentity name="PTFTP" version="1.3.0.1" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PTFTP.exe" size="2332672">
+      <assemblyIdentity name="PTFTP" version="1.4.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>on29a/PiYC6BcCfDyzrS3r/iLWA5KM3bgCN2bTczsQ8=</dsig:DigestValue>
+        <dsig:DigestValue>mU0nkMKG1r6EUkMQF43cZI16+IFaFVxpQ5FCjYWJzMU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="he\PTFTP.resources.dll" size="5632">
-      <assemblyIdentity name="PTFTP.resources" version="1.3.0.1" language="he" processorArchitecture="msil" />
+      <assemblyIdentity name="PTFTP.resources" version="1.4.1.0" language="he" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>uWIMZUYEcgB7f1GJ4pVVsGLDqX/9LyL6K2aeyxQZDrw=</dsig:DigestValue>
+        <dsig:DigestValue>Ih2OtDk2aVRoRQ5GP1ecJDxdwAVoA5sS8hd5ffFwxck=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
