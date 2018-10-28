@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>ftp://ftp.ptftp.net/domains/ptftp.net/public_html/download/|ftp://ftp.ptftp.net/download/|ftp://ftp.ptftp.net/domains/|ftp://ptftp.net/download/|ftp.ptftp.net/</PublishUrlHistory>
+    <PublishUrlHistory>D:\ניר\פרוייקטים\תכנות\עבודות\projects\CurrentProjects\open-source\PTFTP\repo\bin\|D:\NiR\Desktop\setup\|ftp://ftp.ptftp.net/domains/ptftp.net/public_html/download/|ftp://ftp.ptftp.net/download/|ftp://ftp.ptftp.net/domains/</PublishUrlHistory>
     <InstallUrlHistory>http://ptftp.net/download/|http://ptftp.net/gay/</InstallUrlHistory>
     <SupportUrlHistory>http://ptftp.net</SupportUrlHistory>
     <UpdateUrlHistory>http://ptftp.net/download/|http://nir.clan.co.il/PTFTP/</UpdateUrlHistory>

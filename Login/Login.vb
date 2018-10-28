@@ -67,6 +67,7 @@ Public Class Login
         Me.ConnectButton.Text = GlobalStrings.connect
         Me.SaveButton.Text = GlobalStrings.save
         Me.ExitButton.Text = GlobalStrings.exitText
+        Me.DeleteToolStripMenuItem.Text = GlobalStrings.delete
     End Sub
 
     Private Sub ListBox1_DoubleClick(sender As ListBox, e As EventArgs) Handles ListBox1.DoubleClick
@@ -205,7 +206,8 @@ Public Class Login
 
     'form load
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        InstallUpdateSyncWithInfo()
+        'Updates: @TODO: enable again once server is up again
+        'InstallUpdateSyncWithInfo()
 
         'disable right click
         ContextMenuStrip1.Enabled = False
